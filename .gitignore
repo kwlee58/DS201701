@@ -2,3 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+R/*.html
+R/*.rda
+data/*.xlsx
+pics/*.png
+R/rsconnect/*
