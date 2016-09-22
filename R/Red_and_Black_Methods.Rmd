@@ -15,7 +15,8 @@ library(knitr)
 ### Data
 
 ```{r, data, echo = TRUE, results = 'markup'}
-class_roll <- read.xlsx("../data/class_roll.xlsx", 1, startRow = 2, endRow = 23, colIndex = c(3:7, 9), colClasses = rep("character", 6), stringsAsFactors = FALSE)
+# class_roll <- read.xlsx("../data/class_roll.xlsx", 1, startRow = 2, endRow = 23, colIndex = c(3:7, 9), colClasses = rep("character", 6), stringsAsFactors = FALSE)
+load("./team_1602_data_win.rda")
 str(class_roll)
 names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 str(class_roll)
