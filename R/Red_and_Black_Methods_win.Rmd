@@ -99,12 +99,6 @@ kable((table("그룹" = class_roll$group, "학과" = class_roll$dept)))
 kable(table("그룹" = class_roll$group, "학과" = dept.major.f))
 ```
 
-### 출석부
-
-```{r, class roll, echo = FALSE}
-kable(class_roll)
-```
-
 ### Red and Black 나누기
 
 ```{r, list, echo = TRUE, results = 'hide'}
