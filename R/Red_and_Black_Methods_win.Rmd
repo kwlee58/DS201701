@@ -1,5 +1,5 @@
 ---
-title: "Red and Black (Randomization) : Stat Methods"
+title: "Red and Black (Randomization) : Data Science"
 author: "coop711"
 date: "`r Sys.Date()`"
 output: html_document
@@ -16,7 +16,7 @@ library(knitr)
 
 ```{r, data, echo = TRUE, results = 'markup'}
 # class_roll <- read.xlsx("../data/class_roll.xlsx", 1, startRow = 2, endRow = 23, colIndex = c(3:7, 9), colClasses = rep("character", 6), stringsAsFactors = FALSE)
-load("./team_1602_data_win.rda")
+load("./team_1701_data_win.RData")
 str(class_roll)
 names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 str(class_roll)
@@ -33,85 +33,81 @@ class_roll$group <- factor(group, levels = 1:2, labels = c("Red", "Black"))
 kable(class_roll)
 ```
 
-### ?й?
+### 학번
 
 ```{r, id, echo = TRUE}
-# ID.14 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2014, "younger.14", "older.14"), levels=c("younger.14", "older.14"), labels = c("14?й? ????", "13?й? ????"))
-# kable(table("?׷?" = class_roll$group, "14?й? ????" = ID.14))
-ID.13 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2013, "younger.13", "older.13"), levels=c("younger.13", "older.13"), labels = c("13?й? ????", "12?й? ????"))
-kable(table("?׷?" = class_roll$group, "13?й? ????" = ID.13))
-ID.12 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2012, "younger.12", "older.12"), levels=c("younger.12", "older.12"), labels = c("12?й? ????", "11?й? ????"))
-kable(table("?׷?" = class_roll$group, "12?й? ????" = ID.12))
+ID.14 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2014, "younger.14", "older.14"), levels=c("younger.14", "older.14"), labels = c("14학번 이후", "13학번 이전"))
+kable(table("그룹" = class_roll$group, "14학번 기준" = ID.14))
+ID.13 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2013, "younger.13", "older.13"), levels=c("younger.13", "older.13"), labels = c("13학번 이후", "12학번 이전"))
+kable(table("그룹" = class_roll$group, "13학번 기준" = ID.13))
+ID.12 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2012, "younger.12", "older.12"), levels=c("younger.12", "older.12"), labels = c("12학번 이후", "11학번 이전"))
+kable(table("그룹" = class_roll$group, "12학번 기준" = ID.12))
 ```
 
-### ?й? ???ڸ? Ȧ¦
+### 학번 뒷자리 홀짝
 
 ```{r, odd or even, echo = TRUE}
-odd.even <- factor(as.numeric(class_roll$id) %% 2, levels = c(1, 0), labels = c("Ȧ", "¦"))
-kable(table("?׷?"= class_roll$group, "Ȧ¦" = odd.even))
+odd.even <- factor(as.numeric(class_roll$id) %% 2, levels = c(1, 0), labels = c("홀", "짝"))
+kable(table("그룹"= class_roll$group, "홀짝" = odd.even))
 ```
 
-### ?г? ????
+### 학년 분포
 
 ```{r, School Year, echo = TRUE}
-kable(table("?׷?"= class_roll$group, "?г?" = class_roll$year))
+kable(table("그룹"= class_roll$group, "학년" = class_roll$year))
 ```
 
-### e-mail ?????? ??ü
+### e-mail 서비스 업체
 
 ```{r, e_mail, echo = TRUE}
 e.mail.list <- strsplit(class_roll$e.mail, "@", fixed = TRUE)
 mail.com <- mapply("[", e.mail.list, 2)
-mail.com.f <- factor(ifelse(mail.com == "naver.com", mail.com, "??Ÿ ???񽺾?ü"), levels = c("naver.com", "??Ÿ ???񽺾?ü"))
-kable(table("?׷?" = class_roll$group, "e-mail" = mail.com.f))
+mail.com.f <- factor(ifelse(mail.com == "naver.com", mail.com, "기타 서비스업체"), levels = c("naver.com", "기타 서비스업체"))
+kable(table("그룹" = class_roll$group, "e-mail" = mail.com.f))
 ```
 
-### ???? ????
+### 성씨 분포
 
 ```{r, name, echo = TRUE}
 f.name <- substring(class_roll$name, first = 1, last = 1)
-kable(table("?׷?" = class_roll$group, "????" = f.name))
+kable(table("그룹" = class_roll$group, "성씨" = f.name))
 ```
 
-#### ???? ???��? ????
+#### 많이 나오는 성씨
 
 ```{r, frequent family name, echo = TRUE}
 f.name <- substring(class_roll$name, first = 1, last = 1)
-# f.name %in% c("??","??","??")
-f.name.f <- factor(ifelse(f.name %in% c("??", "??", "??", "??"), f.name, "??Ÿ"), levels = c("??", "??", "??", "??", "??Ÿ"))
+# f.name %in% c("김","이","박")
+f.name.f <- factor(ifelse(f.name %in% c("김", "이", "박", "최"), f.name, "기타"), levels = c("김", "이", "박", "최", "기타"))
 kable(table("Group" = class_roll$group, "Family Name" = f.name.f))
 ```
 
 
-### ?а? ????
+### 학과 분포
 
 ```{r, big departments, echo = TRUE, results = 'markup'}
 (tbl.dept <- table(class_roll$dept))
 kable(t(as.table(tbl.dept)))
 str(tbl.dept)
 dept.big <- names(tbl.dept)[tbl.dept >= 8]
-dept.major <- ifelse(class_roll$dept %in% dept.big, class_roll$dept, "??Ÿ ?а?")
-dept.major.f <- factor(dept.major, levels = c(dept.big, "??Ÿ ?а?"))
-kable((table("?׷?" = class_roll$group, "?а?" = class_roll$dept)))
+dept.major <- ifelse(class_roll$dept %in% dept.big, class_roll$dept, "기타 학과")
+dept.major.f <- factor(dept.major, levels = c(dept.big, "기타 학과"))
+kable((table("그룹" = class_roll$group, "학과" = class_roll$dept)))
 ```
 
 ```{r, departments, echo = TRUE}
-kable(table("?׷?" = class_roll$group, "?а?" = dept.major.f))
+kable(table("그룹" = class_roll$group, "학과" = dept.major.f))
 ```
 
-<<<<<<< HEAD
-### ?⼮??
+### 출석부
 
 ```{r, class roll, echo = FALSE}
 kable(class_roll)
 ```
 
-### Red and Black ??????
-=======
-### Red and Black ������
->>>>>>> 3170601b24b9857709c48c1cdbbf797ddd6e7071
+### Red and Black 나누기
 
-```{r, list, echo = TRUE, results = 'hide'}
+```{r, list, echo = TRUE, results = 'markup'}
 (gr.id.o <- order(class_roll$group, class_roll$name))
 (id.by.gr <- class_roll[gr.id.o, c("group", "id", "name")])
 (red.names <- id.by.gr[id.by.gr$group == "Red", c("id", "name")])
@@ -132,6 +128,6 @@ kable(black.names, caption = "Black")
 
 <!--
 ```{r, save}
-save.image("./red_and_black_16_data.rda")
+save.image("./red_and_black_data_win_out.RData")
 ```
 -->
