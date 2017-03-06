@@ -99,6 +99,7 @@ kable((table("?×·?" = class_roll$group, "?Ð°?" = class_roll$dept)))
 kable(table("?×·?" = class_roll$group, "?Ð°?" = dept.major.f))
 ```
 
+<<<<<<< HEAD
 ### ?â¼®??
 
 ```{r, class roll, echo = FALSE}
@@ -106,6 +107,9 @@ kable(class_roll)
 ```
 
 ### Red and Black ??????
+=======
+### Red and Black ³ª´©±â
+>>>>>>> 3170601b24b9857709c48c1cdbbf797ddd6e7071
 
 ```{r, list, echo = TRUE, results = 'hide'}
 (gr.id.o <- order(class_roll$group, class_roll$name))
