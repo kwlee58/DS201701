@@ -33,79 +33,79 @@ class_roll$group <- factor(group, levels = 1:2, labels = c("Red", "Black"))
 kable(class_roll)
 ```
 
-### ÇĞ¹ø
+### ?Ğ¹?
 
 ```{r, id, echo = TRUE}
-# ID.14 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2014, "younger.14", "older.14"), levels=c("younger.14", "older.14"), labels = c("14ÇĞ¹ø ÀÌÈÄ", "13ÇĞ¹ø ÀÌÀü"))
-# kable(table("±×·ì" = class_roll$group, "14ÇĞ¹ø ±âÁØ" = ID.14))
-ID.13 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2013, "younger.13", "older.13"), levels=c("younger.13", "older.13"), labels = c("13ÇĞ¹ø ÀÌÈÄ", "12ÇĞ¹ø ÀÌÀü"))
-kable(table("±×·ì" = class_roll$group, "13ÇĞ¹ø ±âÁØ" = ID.13))
-ID.12 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2012, "younger.12", "older.12"), levels=c("younger.12", "older.12"), labels = c("12ÇĞ¹ø ÀÌÈÄ", "11ÇĞ¹ø ÀÌÀü"))
-kable(table("±×·ì" = class_roll$group, "12ÇĞ¹ø ±âÁØ" = ID.12))
+# ID.14 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2014, "younger.14", "older.14"), levels=c("younger.14", "older.14"), labels = c("14?Ğ¹? ????", "13?Ğ¹? ????"))
+# kable(table("?×·?" = class_roll$group, "14?Ğ¹? ????" = ID.14))
+ID.13 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2013, "younger.13", "older.13"), levels=c("younger.13", "older.13"), labels = c("13?Ğ¹? ????", "12?Ğ¹? ????"))
+kable(table("?×·?" = class_roll$group, "13?Ğ¹? ????" = ID.13))
+ID.12 <- factor(ifelse(substr(class_roll$id, 1, 4) >= 2012, "younger.12", "older.12"), levels=c("younger.12", "older.12"), labels = c("12?Ğ¹? ????", "11?Ğ¹? ????"))
+kable(table("?×·?" = class_roll$group, "12?Ğ¹? ????" = ID.12))
 ```
 
-### ÇĞ¹ø µŞÀÚ¸® È¦Â¦
+### ?Ğ¹? ???Ú¸? È¦Â¦
 
 ```{r, odd or even, echo = TRUE}
 odd.even <- factor(as.numeric(class_roll$id) %% 2, levels = c(1, 0), labels = c("È¦", "Â¦"))
-kable(table("±×·ì"= class_roll$group, "È¦Â¦" = odd.even))
+kable(table("?×·?"= class_roll$group, "È¦Â¦" = odd.even))
 ```
 
-### ÇĞ³â ºĞÆ÷
+### ?Ğ³? ????
 
 ```{r, School Year, echo = TRUE}
-kable(table("±×·ì"= class_roll$group, "ÇĞ³â" = class_roll$year))
+kable(table("?×·?"= class_roll$group, "?Ğ³?" = class_roll$year))
 ```
 
-### e-mail ¼­ºñ½º ¾÷Ã¼
+### e-mail ?????? ??Ã¼
 
 ```{r, e_mail, echo = TRUE}
 e.mail.list <- strsplit(class_roll$e.mail, "@", fixed = TRUE)
 mail.com <- mapply("[", e.mail.list, 2)
-mail.com.f <- factor(ifelse(mail.com == "naver.com", mail.com, "±âÅ¸ ¼­ºñ½º¾÷Ã¼"), levels = c("naver.com", "±âÅ¸ ¼­ºñ½º¾÷Ã¼"))
-kable(table("±×·ì" = class_roll$group, "e-mail" = mail.com.f))
+mail.com.f <- factor(ifelse(mail.com == "naver.com", mail.com, "??Å¸ ???ñ½º¾?Ã¼"), levels = c("naver.com", "??Å¸ ???ñ½º¾?Ã¼"))
+kable(table("?×·?" = class_roll$group, "e-mail" = mail.com.f))
 ```
 
-### ¼º¾¾ ºĞÆ÷
+### ???? ????
 
 ```{r, name, echo = TRUE}
 f.name <- substring(class_roll$name, first = 1, last = 1)
-kable(table("±×·ì" = class_roll$group, "¼º¾¾" = f.name))
+kable(table("?×·?" = class_roll$group, "????" = f.name))
 ```
 
-#### ¸¹ÀÌ ³ª¿À´Â ¼º¾¾
+#### ???? ???ï¿½ï¿½? ????
 
 ```{r, frequent family name, echo = TRUE}
 f.name <- substring(class_roll$name, first = 1, last = 1)
-# f.name %in% c("±è","ÀÌ","¹Ú")
-f.name.f <- factor(ifelse(f.name %in% c("±è", "ÀÌ", "¹Ú", "ÃÖ"), f.name, "±âÅ¸"), levels = c("±è", "ÀÌ", "¹Ú", "ÃÖ", "±âÅ¸"))
+# f.name %in% c("??","??","??")
+f.name.f <- factor(ifelse(f.name %in% c("??", "??", "??", "??"), f.name, "??Å¸"), levels = c("??", "??", "??", "??", "??Å¸"))
 kable(table("Group" = class_roll$group, "Family Name" = f.name.f))
 ```
 
 
-### ÇĞ°ú ºĞÆ÷
+### ?Ğ°? ????
 
 ```{r, big departments, echo = TRUE, results = 'markup'}
 (tbl.dept <- table(class_roll$dept))
 kable(t(as.table(tbl.dept)))
 str(tbl.dept)
 dept.big <- names(tbl.dept)[tbl.dept >= 8]
-dept.major <- ifelse(class_roll$dept %in% dept.big, class_roll$dept, "±âÅ¸ ÇĞ°ú")
-dept.major.f <- factor(dept.major, levels = c(dept.big, "±âÅ¸ ÇĞ°ú"))
-kable((table("±×·ì" = class_roll$group, "ÇĞ°ú" = class_roll$dept)))
+dept.major <- ifelse(class_roll$dept %in% dept.big, class_roll$dept, "??Å¸ ?Ğ°?")
+dept.major.f <- factor(dept.major, levels = c(dept.big, "??Å¸ ?Ğ°?"))
+kable((table("?×·?" = class_roll$group, "?Ğ°?" = class_roll$dept)))
 ```
 
 ```{r, departments, echo = TRUE}
-kable(table("±×·ì" = class_roll$group, "ÇĞ°ú" = dept.major.f))
+kable(table("?×·?" = class_roll$group, "?Ğ°?" = dept.major.f))
 ```
 
-### Ãâ¼®ºÎ
+### ?â¼®??
 
 ```{r, class roll, echo = FALSE}
 kable(class_roll)
 ```
 
-### Red and Black ³ª´©±â
+### Red and Black ??????
 
 ```{r, list, echo = TRUE, results = 'hide'}
 (gr.id.o <- order(class_roll$group, class_roll$name))
