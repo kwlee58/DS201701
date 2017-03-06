@@ -1,5 +1,5 @@
 ---
-title: "Red and Black (Randomization) : Stat Methods"
+title: "Red and Black (Randomization) : Data Science"
 author: "coop711"
 date: "`r Sys.Date()`"
 output: html_document
@@ -16,7 +16,7 @@ library(knitr)
 
 ```{r, data, echo = TRUE, results = 'markup'}
 # class_roll <- read.xlsx("../data/class_roll.xlsx", 1, startRow = 2, endRow = 23, colIndex = c(3:7, 9), colClasses = rep("character", 6), stringsAsFactors = FALSE)
-load("./team_1602_data_win.rda")
+load("./team_1701_data.RData")
 str(class_roll)
 names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 str(class_roll)
@@ -27,11 +27,10 @@ kable(class_roll)
 
 ```{r, randomization, echo = TRUE}
 set.seed(2)
-N <- nrow(class_roll) 
-red.id <- sample(1:N, size = floor(N/2))
-red.id
-class_roll$group <- factor(ifelse((1:N) %in% red.id, "Red", "Black"), levels = c("Red", "Black"))
-black.id <- (1:N)[-red.id]
+N <- nrow(class_roll)
+group <- 1 + sample(1:N) %% 2
+class_roll$group <- factor(group, levels = 1:2, labels = c("Red", "Black"))
+kable(class_roll)
 ```
 
 ### 학번
@@ -129,6 +128,6 @@ kable(black.names, caption = "Black")
 
 <!--
 ```{r, save}
-save.image("./red_and_black_16_data.rda")
+save.image("./red_and_black_data_out.RData")
 ```
 -->
