@@ -8,11 +8,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# install.packages("kable", repos = "https://cran.rstudio.com")
 # install.packages("xlsx", repos = "https://cran.rstudio.com")
 library(xlsx)
 library(knitr)
-# kableOptions('table.split.table', Inf)
 ```
 
 ### Data
