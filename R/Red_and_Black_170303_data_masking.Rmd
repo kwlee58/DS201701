@@ -31,7 +31,6 @@ names.split <- sapply(class_roll$name, function(x) unlist(strsplit(x, split ="")
 names.split[2:3, ] <- rep("ㅇ", 2)
 # names.split
 class_roll$name <- apply(names.split, 2, paste, collapse = "")
-write.table(class_roll, file ="../data/class_roll_masked.txt")
 ```
 
 ### cell.no Masking
