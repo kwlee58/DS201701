@@ -8,7 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 # install.packages("xlsx", repos = "https://cran.rstudio.com")
-library(xlsx)
+# library(xlsx)
 library(knitr)
 ```
 
@@ -26,7 +26,7 @@ kable(class_roll)
 ### Randomization
 
 ```{r, randomization, echo = TRUE}
-set.seed(2)
+set.seed(1)
 N <- nrow(class_roll)
 group <- 1 + sample(1:N) %% 2
 class_roll$group <- factor(group, levels = 1:2, labels = c("Red", "Black"))

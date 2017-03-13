@@ -14,7 +14,7 @@ library(knitr)
 ### Data
 
 ```{r, data}
-class_roll <- read.table("../data/class_roll_masked.txt", header = TRUE, stringsAsFactors = FALSE)
+class_roll <- read.table("../data/class_roll_masked.txt", header = TRUE, stringsAsFactors = FALSE, encoding = "CP949")
 str(class_roll)
 ```
 
@@ -23,10 +23,6 @@ str(class_roll)
 ```{r, randomization}
 set.seed(107)
 N <- nrow(class_roll) 
-# red.id <- sample(1:N, size = floor(N/2))
-# red.id
-# class_roll$group <- factor(ifelse((1:N) %in% red.id, "Red", "Black"), levels = c("Red", "Black"))
-# black.id <- (1:N)[-red.id]
 class_roll$group <- sample(1:N) %% 2 + 1
 class_roll$group <- factor(class_roll$group, labels = c("Red", "Black"))
 red.id <- which(class_roll$group == "Red")
@@ -86,38 +82,6 @@ kable(table("그룹" = class_roll$group, "학과" = class_roll$dept))
 
 ```{r, colleges}
 kable(class_roll)
-#table("단과대학" = class_roll$college, "그룹" = class_roll$group)
-```
-
-<P style="page-break-before:always">
-
-```{r, list, echo = FALSE}
-gr.id.o <- order(class_roll$group, class_roll$name)
-id.by.gr <- class_roll[gr.id.o, c("group", "id", "name")]
-red.names <- id.by.gr[id.by.gr$group=="Red", c("id", "name")]
-names(red.names) <- c("학번", "이름")
-# kable(red.names)
-black.names <- id.by.gr[id.by.gr$group=="Black", c("id", "name")]
-names(black.names) <- c("학번", "이름")
-# kable(black.names)
-# class_roll[red.id, "id"]
-# class_roll[black.id, "id"]
-# cbind(class_roll[red.id, "id"], class_roll[black.id, "id"])
-# red.black.df <- data.frame("Red" = red.names, "Black" = black.names, row.names = NULL)
-# red.black.ls <- list("Red" = red.names, "Black" = black.names)
-# names(red.black.df) <- c("Red", "Black")
-# kable(red.black.ls)
-#kable(red.black.df, align = c("c", "c", "c", "c"))
-```
-
-```{r, red.names, echo = FALSE}
-kable(red.names, caption = "Red")
-```
-
-<P style="page-break-before:always">
-
-```{r, black.names, echo = FALSE}
-kable(black.names, caption = "Black")
 ```
 
 <!--

@@ -18,7 +18,7 @@ library(knitr)
 ### Data
 
 ```{r, data}
-class_roll <- read.xlsx("../data/class_roll0303.xlsx", 1, startRow = 2, endRow = 162, colIndex = c(3:7, 9), colClasses = rep("character", 6), stringsAsFactors = FALSE)
+class_roll <- read.xlsx("../data/class_roll0303.xlsx", 1, startRow = 2, endRow = 162, colIndex = c(3:7, 9), colClasses = rep("character", 6), encoding = "UTF-8", stringsAsFactors = FALSE)
 names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 ```
 
