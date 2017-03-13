@@ -27,10 +27,24 @@ names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 ```{r, masking}
 class_roll$name[class_roll$name == "정결"] <- "정결군"
 names.split <- sapply(class_roll$name, function(x) unlist(strsplit(x, split ="")))
+# names.split
 names.split[2:3, ] <- rep("ㅇ", 2)
+# names.split
 class_roll$name <- apply(names.split, 2, paste, collapse = "")
 write.table(class_roll, file ="../data/class_roll_masked.txt")
 ```
+
+### cell.no Masking
+
+```{r, cell.no}
+cell_no.split <- sapply(class_roll$cell.no, function(x) unlist(strsplit(x, split ="-")))
+# cell_no.split
+cell_no.split[3, ] <- "xxxx"
+# cell_no.split
+class_roll$cell.no <- apply(cell_no.split, 2, paste, collapse = "-")
+write.table(class_roll, file ="../data/class_roll_masked.txt")
+```
+
 
 <!--
 ```{r, save}
