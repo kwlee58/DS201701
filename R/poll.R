@@ -4,7 +4,7 @@ prop.in <- c(20.0, 0.0, 2.7, 5.7, 29.5, 11.4, 2.3)
 counts.in <- round(counts * prop.in / 100)
 counts.not <- counts - counts.in
 counts.df <- data.frame(지지정당 = party, 사례수 = counts, 참여 = counts.in, 미참여 = counts.not)
-par(family = "HCR Dotum LVT")
+# par(family = "HCR Dotum LVT")
 barplot(t(as.matrix(counts.df[, 3:4])), axes = FALSE, beside = FALSE, names.arg = counts.df[, 1], legend.text = c("참여", "미참여"), col = c("cyan", "red"))
 axis(side = 2, at = counts, labels = counts)
 main.title <- "지지정당 별 민주당 경선 참여 비교"
@@ -19,7 +19,7 @@ counts.df.melt2 <- counts.df.melt[counts.df.melt$Participation != "사례수", ]
 library(ggplot2)
 ggplot(data = counts.df.melt2, mapping = aes(x = party.f, y = Counts, fill = Participation)) +
   geom_bar(stat = "identity") + 
-  theme_bw(base_family = "HCR Dotum LVT") +
+  theme_bw(base_family = "") +
     scale_fill_manual(name = "경선참여", values = c("red", "cyan")) +
     scale_x_discrete(name = "지지정당") +
     scale_y_continuous(name = "사례수", breaks = counts, labels = counts) +
