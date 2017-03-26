@@ -1,10 +1,38 @@
-candidates <- c("ë¬¸ìž¬ì¸", "ì•ˆí¬ì •", "í™©êµì•ˆ", "ì•ˆì² ìˆ˜", "ì´ìž¬ëª…", "ìœ ìŠ¹ë¯¼") 
+---
+title: "JTBC 1702"
+output:
+  html_document: default
+  html_notebook: default
+---
+
+## Problem
+
+JTBC ´º½º·ë¿¡¼­´Â ´ÙÀ½°ú °°Àº µµÇ¥ÀÇ ÈÄº¸ÁöÁöµµ ¿©·ÐÁ¶»ç °á°ú¸¦ º¸µµ. 
+
+![JTBC ´º½º·ë 2017. 2¿ù](../pics/poll_2017_JTBC.jpg)
+
+¸·´ëÀÇ ³ôÀÌ¿¡ ÀÇ±¸½ÉÀ» Ç¥ÇÑ ½ÃÃ»ÀÚµéÀÇ Ç×ÀÇ¿¡ Á÷¸éÇÔ. 
+
+Á¦´ë·Î µÈ ¸·´ë±×·¡ÇÁ¸¦ ±×¸®¸é¼­ R Base plot°ú ggplot¿¡ ´ëÇÏ¿© ÇÐ½À.
+
+
+## Data Setup
+
+```{r, data}
+candidates <- c("¹®ÀçÀÎ", "¾ÈÈñÁ¤", "È²±³¾È", "¾ÈÃ¶¼ö", "ÀÌÀç¸í", "À¯½Â¹Î") 
 rates <- c(33, 22, 9, 9, 5, 2)
-party <- c("ë”ë¶ˆì–´ë¯¼ì£¼ë‹¹", "ìžìœ í•œêµ­ë‹¹", "êµ­ë¯¼ì˜ë‹¹", "ë°”ë¥¸ì •ë‹¹")
+party <- c("´õºÒ¾î¹ÎÁÖ´ç", "ÀÚÀ¯ÇÑ±¹´ç", "±¹¹ÎÀÇ´ç", "¹Ù¸¥Á¤´ç")
 colour.party <- c("skyblue", "lightgrey", "darkgreen", "darkblue")
-candidates.party <-  c("ë”ë¶ˆì–´ë¯¼ì£¼ë‹¹", "ë”ë¶ˆì–´ë¯¼ì£¼ë‹¹", "ìžìœ í•œêµ­ë‹¹", "êµ­ë¯¼ì˜ë‹¹", "ë”ë¶ˆì–´ë¯¼ì£¼ë‹¹", "ë°”ë¥¸ì •ë‹¹")
+candidates.party <-  c("´õºÒ¾î¹ÎÁÖ´ç", "´õºÒ¾î¹ÎÁÖ´ç", "ÀÚÀ¯ÇÑ±¹´ç", "±¹¹ÎÀÇ´ç", "´õºÒ¾î¹ÎÁÖ´ç", "¹Ù¸¥Á¤´ç")
 match(candidates.party, party)
 candidates.colour <- colour.party[match(candidates.party, party)]
+```
+
+<p style = "page-break-before: always">
+
+## Barplot (R Base)
+
+```{r, fig.width = 8, fig.height = 4}
 barplot(rates)
 b1 <- barplot(rates, 
               axes = FALSE, 
@@ -12,16 +40,23 @@ b1 <- barplot(rates,
               names.arg = candidates,
               cex.names = 1.2)
 text(x = b1, y = rates + c(rep(-3, 4), rep(1.5, 2)), labels = rates, cex = 1.2)
-main.title <- "ëŒ€ì„ ì£¼ìž ì§€ì§€ìœ¨(%)"
+main.title <- "´ë¼±ÁÖÀÚ ÁöÁöÀ²(%)"
 title(main = main.title, cex.main = 1.5)
+```
+
+<p style = "page-break-before: always">
+
+## ggplot
+
+```{r, ggplot, fig.width = 8, fig.height = 4}
 library(ggplot2)
 candidates.f <- factor(candidates, levels = candidates)
-rates.df <- data.frame(í›„ë³´ = candidates.f, 
-                       ì •ë‹¹ = candidates.party, 
-                       ìƒ‰ê¹” = candidates.colour,
-                       ì§€ì§€ë„ = rates)
+rates.df <- data.frame(ÈÄº¸ = candidates.f, 
+                       Á¤´ç = candidates.party, 
+                       »ö±ò = candidates.colour,
+                       ÁöÁöµµ = rates)
 g0 <- ggplot(data = rates.df, 
-             mapping = aes(x = í›„ë³´, y = ì§€ì§€ë„))
+             mapping = aes(x = ÈÄº¸, y = ÁöÁöµµ))
 (g1 <- g0 +
   geom_bar(stat = "identity"))
 (g1 <- g0 +
@@ -30,9 +65,9 @@ g0 <- ggplot(data = rates.df,
 (g2 <- g1 +
   theme_bw())
 (g3 <- g2 +
-  geom_text(mapping = aes(x = í›„ë³´, 
-                          y = ì§€ì§€ë„ + c(rep(-3, 4), rep(2, 2)), 
-                          label = ì§€ì§€ë„), 
+  geom_text(mapping = aes(x = ÈÄº¸, 
+                          y = ÁöÁöµµ + c(rep(-3, 4), rep(2, 2)), 
+                          label = ÁöÁöµµ), 
                           size = 6))
 (g4 <- g3 +
   labs(title = main.title))
@@ -55,3 +90,5 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 1.5, 
              size = 6))
+
+```
