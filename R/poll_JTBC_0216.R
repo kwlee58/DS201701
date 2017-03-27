@@ -1,7 +1,7 @@
 candidates <- c("문재인", "안희정", "이재명", "안철수", "황교안")
 week2 <- c(57, 20, 11, 2, 1)
 week3 <- c(61, 24, 7, 1, 1)
-rates.df <- data.frame(candidates, week2, week3)
+rates.df <- data.frame(candidates, week2, week3, stringsAsFactors = FALSE)
 rates.df
 # par(family = "HCR Dotum LVT")
 b1 <- barplot(t(as.matrix(rates.df[, 2:3])), 
@@ -33,9 +33,9 @@ str(rates.df.melt)
 library(ggplot2)
 g0 <- ggplot(data = rates.df.melt, 
              mapping = aes(x = candidates.f, y = rates, fill = week)) 
-g1 <- g0 + 
-  geom_bar(stat = "identity", position = position_dodge()) 
-g1
+(g1 <- g0 + 
+  geom_bar(stat = "identity", position = position_dodge())) 
+# g1
 g2 <- g1 +
   geom_text(mapping = aes(x = candidates.f, 
                           y = rates + 2, 
