@@ -1,0 +1,65 @@
+candidates <- c("문재인", "안철수", "안희정", "이재명", "홍준표", "김진태", "심상정", "유승민") 
+rates <- c(35.2, 17.4, 12.0, 9.5, 7.7, 5.3, 3.4, 2.6)
+party <- c("더불어민주당", "자유한국당", "국민의당", "정의당", "바른정당")
+colour.party <- c("skyblue", "lightgrey", "darkgreen", "purple", "darkblue")
+candidates.party <-  c("더불어민주당", "국민의당", "더불어민주당",  "더불어민주당", "자유한국당", "자유한국당", "정의당", "바른정당")
+match(candidates.party, party)
+candidates.colour <- colour.party[match(candidates.party, party)]
+barplot(rates)
+par(family = "HCR Dotum LVT")
+b1 <- barplot(rates, 
+              axes = FALSE, 
+              col = "skyblue", 
+              names.arg = candidates,
+              cex.names = 1.2,
+              ylim = c(0, 38))
+text(x = b1, y = rates + rep(1.5, 8), 
+    labels = paste(rates, "%", sep = ""), 
+    col = c("red", "orange", rep("darkblue", 6)), 
+    cex = 1.2)
+main.title <- "대선주자 지지도"
+title(main = main.title, cex.main = 1.5)
+library(ggplot2)
+candidates.f <- factor(candidates, levels = candidates)
+rates.df <- data.frame(후보 = candidates.f, 
+                       정당 = candidates.party, 
+                       색깔 = candidates.colour,
+                       지지도 = rates)
+g0 <- ggplot(data = rates.df, 
+             mapping = aes(x = 후보, y = 지지도))
+(g1 <- g0 +
+  geom_bar(stat = "identity"))
+(g1 <- g0 +
+  geom_bar(stat = "identity", 
+           fill = candidates.colour))
+(g2 <- g1 +
+  theme_bw(base_family = "HCR Dotum LVT"))
+(g3 <- g2 +
+  geom_text(mapping = aes(x = 후보, 
+                          y = 지지도 + rep(1, 8), 
+                          label = paste(지지도, "%", sep = "")), 
+                          size = 6))
+(g4 <- g3 +
+  labs(title = main.title))
+(g5 <- g4 +
+  theme(plot.title = element_text(hjust = 0.5)))
+(g6 <- g5 +
+  scale_y_continuous(breaks = rates, labels = rates))
+(g7 <- g6 +
+  theme(panel.border = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_text(vjust = 0),
+        axis.ticks = element_blank(), 
+        axis.text.y = element_blank()))
+(g8 <- g7 +
+    ggtitle("") +
+    annotate("text", 
+             x = mean(b1), 
+             y = Inf, 
+             label = main.title, 
+             vjust = 1.5, 
+             size = 6, 
+             family = "HCR Dotum LVT"))
+
+  
