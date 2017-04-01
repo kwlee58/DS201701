@@ -1,3 +1,4 @@
+library(extrafont)
 candidates <- c("문재인", "안철수", "안희정", "이재명", "홍준표", "김진태", "심상정", "유승민") 
 rates <- c(35.2, 17.4, 12.0, 9.5, 7.7, 5.3, 3.4, 2.6)
 party <- c("더불어민주당", "자유한국당", "국민의당", "정의당", "바른정당")
@@ -8,11 +9,11 @@ candidates.colour <- colour.party[match(candidates.party, party)]
 barplot(rates)
 par(family = "Malgun Gothic")
 # b1 <- barplot(rates, 
-              axes = FALSE, 
-              col = "skyblue", 
-              names.arg = candidates,
-              cex.names = 1.2,
-              ylim = c(0, 38))
+#              axes = FALSE, 
+#              col = "skyblue", 
+#              names.arg = candidates,
+#              cex.names = 1.2,
+#              ylim = c(0, 38))
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "skyblue", 
