@@ -6,19 +6,26 @@ candidates.party <-  c("더불어민주당", "국민의당", "더불어민주당
 match(candidates.party, party)
 candidates.colour <- colour.party[match(candidates.party, party)]
 barplot(rates)
-# par(family = "HCR Dotum LVT")
-b1 <- barplot(rates, 
+par(family = "Malgun Gothic")
+# b1 <- barplot(rates, 
               axes = FALSE, 
               col = "skyblue", 
               names.arg = candidates,
               cex.names = 1.2,
               ylim = c(0, 38))
+b1 <- barplot(rates, 
+              axes = FALSE, 
+              col = "skyblue", 
+              names.arg = NULL,
+              cex.names = 1.2,
+              ylim = c(0, 38))
+mtext(side = 1, at = b1, line = 0, text = candidates)
 text(x = b1, y = rates + rep(1.5, 8), 
     labels = paste(rates, "%", sep = ""), 
     col = c("red", "orange", rep("darkblue", 6)), 
     cex = 1.2)
 main.title <- "대선주자 지지도"
-title(main = main.title, cex.main = 1.5)
+title(main = main.title, cex.main = 1.5, line = -2)
 library(ggplot2)
 candidates.f <- factor(candidates, levels = candidates)
 rates.df <- data.frame(후보 = candidates.f, 
@@ -33,7 +40,7 @@ g0 <- ggplot(data = rates.df,
   geom_bar(stat = "identity", 
            fill = candidates.colour))
 (g2 <- g1 +
-  theme_bw(base_family = ""))
+  theme_bw(base_family = "Malgun Gothic"))
 (g3 <- g2 +
   geom_text(mapping = aes(x = 후보, 
                           y = 지지도 + rep(1, 8), 
@@ -49,17 +56,25 @@ g0 <- ggplot(data = rates.df,
   theme(panel.border = element_blank(),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        axis.text.x = element_text(vjust = 0),
+        axis.text.x = element_blank(),
         axis.ticks = element_blank(), 
         axis.text.y = element_blank()))
 (g8 <- g7 +
+    geom_text(mapping = aes(x = 후보,
+                            y = -1,
+                            label = 후보),
+              size = 5,
+              family = "Malgun Gothic"))
+    
+
+(g9 <- g8 +
     ggtitle("") +
     annotate("text", 
              x = mean(b1), 
-             y = Inf, 
+             y = max(rates) - 3, 
              label = main.title, 
-             vjust = 1.5, 
-             size = 6, 
-             family = ""))
+             vjust = 0, 
+             size = 10, 
+             family = "Malgun Gothic"))
 
   
