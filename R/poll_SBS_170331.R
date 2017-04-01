@@ -6,7 +6,7 @@ candidates.party <-  c("더불어민주당", "국민의당", "더불어민주당
 match(candidates.party, party)
 candidates.colour <- colour.party[match(candidates.party, party)]
 barplot(rates)
-par(family = "HCR Dotum LVT")
+# par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "skyblue", 
@@ -33,7 +33,7 @@ g0 <- ggplot(data = rates.df,
   geom_bar(stat = "identity", 
            fill = candidates.colour))
 (g2 <- g1 +
-  theme_bw(base_family = "HCR Dotum LVT"))
+  theme_bw(base_family = ""))
 (g3 <- g2 +
   geom_text(mapping = aes(x = 후보, 
                           y = 지지도 + rep(1, 8), 
@@ -60,6 +60,6 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 1.5, 
              size = 6, 
-             family = "HCR Dotum LVT"))
+             family = ""))
 
   
