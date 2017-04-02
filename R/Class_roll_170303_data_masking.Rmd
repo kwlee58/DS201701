@@ -20,24 +20,29 @@ class_roll <- read.xlsx("../data/class_roll0303.xlsx", 1, startRow = 2, endRow =
 names(class_roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no")
 ```
 
-### Names Masking
+### Names
 
 ```{r, name}
-class_roll$name[class_roll$name == "정결"] <- "정결군"
+not3.ind <- which(nchar(class_roll$name) != 3)
+not3.ind
+class_roll$name[not3.ind] <- paste(substr(class_roll$name[not3.ind], 1, 1), "ㅇㅇ", sep = "")
+class_roll$name[not3.ind]
 names.split <- sapply(class_roll$name, function(x) unlist(strsplit(x, split = "")))
 names.split[2:3, ] <- rep("ㅇ", 2)
 class_roll$name <- apply(names.split, 2, paste, collapse = "")
-# write.table(class_roll, file ="../data/class_roll_masked.txt")
+kable(head(class_roll))
 ```
 
-### Cell NUmbers
+### Cell Phone Numbers
 
 ```{r, cell.no}
+cell.na <- is.na(class_roll$cell.no)
+class_roll$cell.no[cell.na] <- "NA-NA-NA"
 cell.split <- sapply(class_roll$cell.no, function(x) unlist(strsplit(x, split = "-")))
 # cell.split
 cell.split[3, ] <- "xxxx"
 class_roll$cell.no <- apply(cell.split, 2, paste, collapse = "-")
-head(class_roll)
+kable(head(class_roll))
 ```
 
 ### e-mail
@@ -50,11 +55,12 @@ email.split <- sapply(class_roll$e.mail, function(x) unlist(strsplit(x, split = 
 # email.split
 email.split[1, ] <- "user_name"
 class_roll$e.mail <- apply(email.split, 2, paste, collapse = "@")
-head(class_roll)
+kable(head(class_roll))
 ```
 
 <!--
 ```{r, save}
-save.image("../R/red_and_black_170303_data_masked.RData")
+write.table(class_roll, file ="../data/class_roll_masked.txt")
+save.image("../R/class_roll_170303_data_masked.RData")
 ```
 -->
