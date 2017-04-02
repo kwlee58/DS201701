@@ -1,5 +1,5 @@
 ---
-title: "JTBC 1702"
+title: "SBS 1703"
 output: html_document
 ---
 
@@ -224,7 +224,7 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, rates at y 2, fig.width = 8, fig.height = 4}
 (g6 <- g5 +
-  scale_y_continuous(breaks = rates, labels = rates))
+  scale_y_continuous(breaks = rates, labels = c.rates))
 ```
 
 ### Clear axes
