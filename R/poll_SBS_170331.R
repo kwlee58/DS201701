@@ -1,5 +1,5 @@
 ## Font Family Extension
-library(extrafont)
+# library(extrafont)
 ## Data 
 candidates <- c("문재인", "안철수", "안희정", "이재명", "홍준표", "김진태", "심상정", "유승민") 
 rates <- c(35.2, 17.4, 12.0, 9.5, 7.7, 5.3, 3.4, 2.6)
@@ -18,7 +18,7 @@ col.rates <- c("red", "orange", rep("darkblue", 6))
 ## Barplot
 barplot(rates)
 ## Font Specification
-par(family = "Malgun Gothic")
+# par(family = "Malgun Gothic")
 ## Names under Bars
 b1 <- barplot(rates, 
               axes = FALSE, 
@@ -89,7 +89,7 @@ g0 <- ggplot(data = rates.df,
            fill = candidates.colour))
 ## Font family setting
 (g2 <- g1 +
-  theme_bw(base_family = "Malgun Gothic"))
+  theme_bw(base_family = ""))
 ## Add rates on top of the bars
 (g3.0 <- g2 +
   geom_text(mapping = aes(x = 후보, 
@@ -133,7 +133,7 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = 후보),
               size = 5,
-              family = "Malgun Gothic"))
+              family = ""))
 ## Main title as usual
 (g9 <- g8 +
     ggtitle("") +
@@ -143,7 +143,7 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
-             family = "Malgun Gothic"))
+             family = ""))
 ## geom_label to enclose the main title in bounding box
 (g9.1 <- g8 +
     ggtitle("") +
@@ -154,7 +154,7 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
-               family = "Malgun Gothic"))
+               family = ""))
 ## Notes
 (g9.2 <- g9.1 + 
     annotate("text", x = mean(b1) - 1, y = max(rates) - 8, 

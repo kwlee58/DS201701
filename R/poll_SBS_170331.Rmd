@@ -54,7 +54,7 @@ barplot(rates)
 ### Font Specification
 
 ```{r, font family}
-par(family = "Malgun Gothic")
+par(family = "")
 ```
 
 <P style = "page-break-before:always">
@@ -67,7 +67,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = candidates,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 ```
 
 <P style = "page-break-before:always">
@@ -80,11 +80,11 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = NULL,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 mtext(side = 1, at = b1, line = 0, text = candidates)
 ## Rates written on top of the Bars with different Colours
 text(x = b1, y = rates + rep(1.5, 8), 
-    labels = paste(rates, "%", sep = ""), 
+    labels = paste(c.rates, "%", sep = ""), 
     col = col.rates, 
     cex = 1.2)
 main.title <- "대선주자 지지도"
@@ -167,7 +167,7 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, font family 2, fig.width = 8, fig.height = 4}
 (g2 <- g1 +
-  theme_bw(base_family = "Malgun Gothic"))
+  theme_bw(base_family = ""))
 ```
 
 <P style = "page-break-before:always">
@@ -249,7 +249,7 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = 후보),
               size = 5,
-              family = "Malgun Gothic"))
+              family = ""))
 ```
 
 <P style = "page-break-before:always">
@@ -265,7 +265,7 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
-             family = "Malgun Gothic"))
+             family = ""))
 ```
 
 <P style = "page-break-before:always">
@@ -282,7 +282,7 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
-               family = "Malgun Gothic"))
+               family = ""))
 ```
 
 <P style = "page-break-before:always">
@@ -294,5 +294,6 @@ g0 <- ggplot(data = rates.df,
     annotate("text", x = mean(b1) - 1, y = max(rates) - 8, 
              label = note.text, 
              size = 2, 
-             hjust = 0))
+             hjust = 0,
+             family = ""))
 ```

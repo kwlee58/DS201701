@@ -4,7 +4,7 @@ party <- c("더불어민주당", "자유한국당", "국민의당", "바른정�
 colour.party <- c("skyblue", "lightgrey", "darkgreen", "darkblue")
 candidates.party <-  c("더불어민주당", "더불어민주당", "자유한국당", "국민의당", "더불어민주당", "바른정당")
 match(candidates.party, party)
-candidates.colour <- colour.party[match(candidates.party, party)]
+(candidates.colour <- colour.party[match(candidates.party, party)])
 barplot(rates)
 b1 <- barplot(rates, 
               axes = FALSE, 
