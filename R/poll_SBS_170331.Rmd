@@ -1,5 +1,5 @@
 ---
-title: "JTBC 1702"
+title: "SBS 1703"
 output: html_document
 ---
 
@@ -67,7 +67,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = candidates,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 ```
 
 <P style = "page-break-before:always">
@@ -80,7 +80,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = NULL,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 mtext(side = 1, at = b1, line = 0, text = candidates)
 ## Rates written on top of the Bars with different Colours
 text(x = b1, y = rates + rep(1.5, 8), 
@@ -104,7 +104,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = NULL,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 mtext(side = 1, at = b1, line = 0, text = candidates)
 ## text for integer part
 text(x = b1 - c(rep(0.4, 3), rep(0.3, 5)), y = rates + rep(1.5, 8), 
