@@ -1,5 +1,5 @@
 ---
-title: "JTBC 1702"
+title: "SBS 170327"
 output: html_document
 ---
 
@@ -54,7 +54,7 @@ barplot(rates)
 ### Font Specification
 
 ```{r, font family}
-par(family = "Malgun Gothic")
+par(family = "HCR Dotum LVT")
 ```
 
 <P style = "page-break-before:always">
@@ -62,6 +62,7 @@ par(family = "Malgun Gothic")
 ### Names under Bars
 
 ```{r, names, fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -75,6 +76,7 @@ b1 <- barplot(rates,
 ### Names closer to Bars using mtext
 
 ```{r, names closer to bars,  fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -99,6 +101,7 @@ title(main = main.title, cex.main = 1.5, line = -2)
 ## Rates with different font size for digits
 
 ```{r, different font sizes, fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -167,7 +170,7 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, font family 2, fig.width = 8, fig.height = 4}
 (g2 <- g1 +
-  theme_bw(base_family = "Malgun Gothic"))
+  theme_bw(base_family = "HCR Dotum LVT"))
 ```
 
 <P style = "page-break-before:always">
@@ -227,6 +230,8 @@ g0 <- ggplot(data = rates.df,
   scale_y_continuous(breaks = rates, labels = rates))
 ```
 
+<P style = "page-break-before:always">
+
 ### Clear axes
 
 ```{r, clear axes, fig.width = 8, fig.height = 4}
@@ -249,7 +254,7 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = ÈÄº¸),
               size = 5,
-              family = "Malgun Gothic"))
+              family = "HCR Dotum LVT"))
 ```
 
 <P style = "page-break-before:always">
@@ -265,7 +270,7 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
-             family = "Malgun Gothic"))
+             family = "HCR Dotum LVT"))
 ```
 
 <P style = "page-break-before:always">
@@ -282,7 +287,7 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
-               family = "Malgun Gothic"))
+               family = "HCR Dotum LVT"))
 ```
 
 <P style = "page-break-before:always">
@@ -294,5 +299,6 @@ g0 <- ggplot(data = rates.df,
     annotate("text", x = mean(b1) - 1, y = max(rates) - 8, 
              label = note.text, 
              size = 2, 
-             hjust = 0))
+             hjust = 0,
+             family = "HCR Dotum LVT"))
 ```
