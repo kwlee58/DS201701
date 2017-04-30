@@ -18,7 +18,11 @@ col.rates <- c("red", "orange", rep("darkblue", 6))
 ## Barplot
 barplot(rates)
 ## Font Specification
+<<<<<<< HEAD
+par(family = "HCR Dotum LVT")
+=======
 # par(family = "Malgun Gothic")
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ## Names under Bars
 b1 <- barplot(rates, 
               axes = FALSE, 
@@ -89,7 +93,11 @@ g0 <- ggplot(data = rates.df,
            fill = candidates.colour))
 ## Font family setting
 (g2 <- g1 +
+<<<<<<< HEAD
+  theme_bw(base_family = "HCR Dotum LVT"))
+=======
   theme_bw(base_family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ## Add rates on top of the bars
 (g3.0 <- g2 +
   geom_text(mapping = aes(x = 후보, 
@@ -133,7 +141,11 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = 후보),
               size = 5,
+<<<<<<< HEAD
+              family = "HCR Dotum LVT"))
+=======
               family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ## Main title as usual
 (g9 <- g8 +
     ggtitle("") +
@@ -143,7 +155,11 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
+<<<<<<< HEAD
+             family = "HCR Dotum LVT"))
+=======
              family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ## geom_label to enclose the main title in bounding box
 (g9.1 <- g8 +
     ggtitle("") +
@@ -154,11 +170,16 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
+<<<<<<< HEAD
+               family = "HCR Dotum LVT"))
+=======
                family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ## Notes
 (g9.2 <- g9.1 + 
     annotate("text", x = mean(b1) - 1, y = max(rates) - 8, 
              label = note.text, 
              size = 2, 
-             hjust = 0))
+             hjust = 0,
+             family = "HCR Dotum LVT"))
   

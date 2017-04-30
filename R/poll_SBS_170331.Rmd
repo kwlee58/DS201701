@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
+title: "SBS 170327"
+=======
 title: "SBS 1703"
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 output: html_document
 ---
 
@@ -54,7 +58,11 @@ barplot(rates)
 ### Font Specification
 
 ```{r, font family}
+<<<<<<< HEAD
+par(family = "HCR Dotum LVT")
+=======
 par(family = "")
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -62,6 +70,7 @@ par(family = "")
 ### Names under Bars
 
 ```{r, names, fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -75,6 +84,7 @@ b1 <- barplot(rates,
 ### Names closer to Bars using mtext
 
 ```{r, names closer to bars,  fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -99,6 +109,7 @@ title(main = main.title, cex.main = 1.5, line = -2)
 ## Rates with different font size for digits
 
 ```{r, different font sizes, fig.width = 8, fig.height = 4}
+par(family = "HCR Dotum LVT")
 b1 <- barplot(rates, 
               axes = FALSE, 
               col = "dodgerblue", 
@@ -167,7 +178,11 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, font family 2, fig.width = 8, fig.height = 4}
 (g2 <- g1 +
+<<<<<<< HEAD
+  theme_bw(base_family = "HCR Dotum LVT"))
+=======
   theme_bw(base_family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -227,6 +242,8 @@ g0 <- ggplot(data = rates.df,
   scale_y_continuous(breaks = rates, labels = c.rates))
 ```
 
+<P style = "page-break-before:always">
+
 ### Clear axes
 
 ```{r, clear axes, fig.width = 8, fig.height = 4}
@@ -249,7 +266,11 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = ÈÄº¸),
               size = 5,
+<<<<<<< HEAD
+              family = "HCR Dotum LVT"))
+=======
               family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -265,7 +286,11 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
+<<<<<<< HEAD
+             family = "HCR Dotum LVT"))
+=======
              family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -282,7 +307,11 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
+<<<<<<< HEAD
+               family = "HCR Dotum LVT"))
+=======
                family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -295,5 +324,9 @@ g0 <- ggplot(data = rates.df,
              label = note.text, 
              size = 2, 
              hjust = 0,
+<<<<<<< HEAD
+             family = "HCR Dotum LVT"))
+=======
              family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
