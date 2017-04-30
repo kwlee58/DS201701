@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "SBS 170327"
+=======
+title: "SBS 1703"
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 output: html_document
 ---
 
@@ -54,7 +58,11 @@ barplot(rates)
 ### Font Specification
 
 ```{r, font family}
+<<<<<<< HEAD
 par(family = "HCR Dotum LVT")
+=======
+par(family = "")
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -68,7 +76,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = candidates,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 ```
 
 <P style = "page-break-before:always">
@@ -82,11 +90,11 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = NULL,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 mtext(side = 1, at = b1, line = 0, text = candidates)
 ## Rates written on top of the Bars with different Colours
 text(x = b1, y = rates + rep(1.5, 8), 
-    labels = paste(rates, "%", sep = ""), 
+    labels = paste(c.rates, "%", sep = ""), 
     col = col.rates, 
     cex = 1.2)
 main.title <- "대선주자 지지도"
@@ -107,7 +115,7 @@ b1 <- barplot(rates,
               col = "dodgerblue", 
               names.arg = NULL,
               cex.names = 1.2,
-              ylim = c(0, 38))
+              ylim = c(0, max(rates) * 1.1))
 mtext(side = 1, at = b1, line = 0, text = candidates)
 ## text for integer part
 text(x = b1 - c(rep(0.4, 3), rep(0.3, 5)), y = rates + rep(1.5, 8), 
@@ -170,7 +178,11 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, font family 2, fig.width = 8, fig.height = 4}
 (g2 <- g1 +
+<<<<<<< HEAD
   theme_bw(base_family = "HCR Dotum LVT"))
+=======
+  theme_bw(base_family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -227,7 +239,7 @@ g0 <- ggplot(data = rates.df,
 
 ```{r, rates at y 2, fig.width = 8, fig.height = 4}
 (g6 <- g5 +
-  scale_y_continuous(breaks = rates, labels = rates))
+  scale_y_continuous(breaks = rates, labels = c.rates))
 ```
 
 <P style = "page-break-before:always">
@@ -254,7 +266,11 @@ g0 <- ggplot(data = rates.df,
                             y = -1,
                             label = 후보),
               size = 5,
+<<<<<<< HEAD
               family = "HCR Dotum LVT"))
+=======
+              family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -270,7 +286,11 @@ g0 <- ggplot(data = rates.df,
              label = main.title, 
              vjust = 0, 
              size = 10, 
+<<<<<<< HEAD
              family = "HCR Dotum LVT"))
+=======
+             family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -287,7 +307,11 @@ g0 <- ggplot(data = rates.df,
                size = 10,
                fill = "dodgerblue4",
                colour = "white",
+<<<<<<< HEAD
                family = "HCR Dotum LVT"))
+=======
+               family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
 
 <P style = "page-break-before:always">
@@ -300,5 +324,9 @@ g0 <- ggplot(data = rates.df,
              label = note.text, 
              size = 2, 
              hjust = 0,
+<<<<<<< HEAD
              family = "HCR Dotum LVT"))
+=======
+             family = ""))
+>>>>>>> d4a6151a759eb79d415a491be20fa81fd498cecc
 ```
