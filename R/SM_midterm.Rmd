@@ -1,5 +1,5 @@
 ---
-title: "Literacy 201701"
+title: "SM Midterm 201701"
 author: "coop711"
 date: "`r Sys.Date()`"
 output: html_document
@@ -7,11 +7,10 @@ output: html_document
 
 #### Data 
 
-<!--#### Excel 자료 읽어들이기 
+#### Excel 자료 읽어들이기 
 
 * excel 파일을 잘 읽어들이는 `xlsx` 패키지를 올려놓고, 자료구조에 맞춰 argument 설정.
     * Sheet 번호, startRow, colIndex, header 의 용도 파악. 
--->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,10 +28,9 @@ options(width=180)
 권현종 학생의 위치가 100번쨰에 놓여 있어서 결석생들의 위치만 가지고 group을 나눠줄 수 없었음. 그들의 id를 다시 찾아서  id와 일치하는 group을 부여하게 됨.
 -->
 
-```{r, read data, echo = FALSE, results = 'hide'}
+```{r, read data, echo = TRUE, results = 'markup'}
 literacy.roll <- read.xlsx("../data/SM_midterm.xlsx", 1, startRow = 3, endRow  = 32, colIndex = c(3:7, 9:42), colClasses = c(rep("character", 39)), header = FALSE, stringsAsFactors = FALSE)
 names(literacy.roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no", paste("Q", 1:33, sep = ""))
-# literacy.roll$group <- factor(literacy.roll$group, levels = c("Red", "Black"), labels = c("Red", "Black"))
 head(literacy.roll)
 str(literacy.roll)
 literacy <- literacy.roll[, c(7:39)]
@@ -58,16 +56,14 @@ SM_midterm <- data.frame(literacy[, 1:3], Q4_m, literacy[, -(1:4)], row.names = 
 pander(SM_midterm)
 ```
 
-<!--
-```{r, pander literacy, echo = FALSE}
+```{r, pander literacy, echo = TRUE}
 pander(literacy)
 ```
 
 #### 문해력 점수 계산
 
-<!--* 정답 맞춰보기
+* 정답 맞춰보기
     * 정답 읽어들이기. `what=""`로 설정하여 `char`취급. 
--->
 
 ```{r, read ans, echo = FALSE, results = 'hide'}
 (ans <- scan("../data/SM_ans.txt", what = ""))
@@ -79,21 +75,16 @@ pander(literacy)
 -->
     
     
-```{r, ans list and unlist, echo = FALSE, results = 'hide'}
-# (ans.l <- split(ans, f = paste("A", 1:25, sep = "")))
+```{r, ans list and unlist, echo = FALSE, results = 'markup'}
 (ans.l <- split(ans, f = paste("A", c(1:3, paste(4, 1:4, sep = "."), 5:33), sep = "")))
 (ans.l.2 <- ans.l[paste("A", c(1:3, paste(4, 1:4, sep = "."), 5:33), sep = "")])
-
-# ans.mat <- matrix(rep(ans, each = nrow(literacy)), nrow = 70)
-# head(ans.mat)
-# literacy.marks <- literacy[, -26] == ans.mat
 ```
 
 ##### 정답과 대조하여 R(Right)/W(Wrong) 표시 
     
 <!--* 채점표라는 의미의 `literacy.marks` 로 저장, (# 표시한 방식으로는 작동하지 않음)-->
     
-```{r, marks, echo = FALSE}
+```{r, marks, echo = TRUE}
 # 첫 세 학생의 응답을 기초로 확대, mapply()의 활용 방식에 유의
 literacy.marks.rw.q1_3 <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2[1:3], SM_midterm[, 1:3])
 literacy.marks.rw <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2, SM_midterm)
@@ -101,6 +92,7 @@ literacy.marks.rw <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y =
 # literacy.marks.rw <- sapply(literacy[, -26], function(x, y = ans.l.2) factor(ifelse(x == y, "R", "W")))
 pander(literacy.marks.rw)
 ```
+<P style = "page-break-before:always">
 
 ##### 학생별 점수 산출
 
@@ -109,17 +101,19 @@ pander(literacy.marks.rw)
     + 조사표는 작성해서 제출했지만 빈칸이 있는 경우는 그 문항을 0점 처리, 결석의 경우는 점수가 모두 0으로 나오는 경우를  NA처리 
 -->
 
-```{r, sum of rights answers, echo = FALSE, results = 'hide'}
-(literacy.marks <- ifelse(literacy.marks.rw == "R", 1, 0))
+```{r, sum of rights answers, echo = FALSE, results = 'markup'}
+literacy.marks <- ifelse(literacy.marks.rw == "R", 1, 0)
+pander(literacy.marks)
 score <- c(rep(3, 3), rep(1, 4), rep(3, 29))
-(literacy.score <- literacy.marks %*% score)
+literacy.score <- literacy.marks %*% score
+pander(data.frame(학번 = literacy.roll$id, 점수 = literacy.score))
 # literacy.score <- apply(literacy.marks, 1, sum, na.rm = TRUE) * 4
 # literacy.score[literacy.score == 0] <- NA
 which(literacy.score < 60)
 ```
 
 ```{r, pander score, echo = FALSE}
-pander(literacy.score)
+# pander(literacy.score)
 ```
 
 <!--
@@ -143,7 +137,7 @@ na.all <- which(apply(literacy.marks.rw, 1, function(x) all(is.na(x))))
     + TRUE의 갯수를 합하여 평균. 
 -->
 
-```{r, computing correct answer rates, echo = FALSE, results = 'hide'}
+```{r, computing correct answer rates, echo = TRUE, results = 'markup'}
 literacy.marks.2 <- literacy.marks.rw
 literacy.marks.2[is.na(literacy.marks.2)] <- "W"
 literacy.marks.2[na.all, ] <- NA
