@@ -21,7 +21,7 @@ panderOptions("table.split.table", Inf)
 ```{r, data}
 load("./BFI_MI_1701.RData")
 # ls()
-str(BFI)
+str(BFI[-2])
 str(MI)
 str(class.roll)
 options(width = 180)
@@ -51,7 +51,7 @@ names(BFI.score) <- c("E.score", "N.score", "C.score", "A.score", "O.score")
 BFI.type.kr <- c("외향성", "신경성", "성실성", "친화성", "개방성")
 BFI.score.kr <- BFI.score
 dimnames(BFI.score.kr) <- list(ID = BFI$ID, BFI.type.kr)
-pander(BFI.score.kr)
+kable(BFI.score.kr)
 ```
 
 점수에 따른 수준 판정
@@ -71,7 +71,7 @@ ordered factor 로 구성된 data frame 으로 정리
 BFI.level <- data.frame(E.level.kr, N.level.kr, C.level.kr, A.level.kr, O.level.kr)
 BFI.level.kr <- data.frame(lapply(BFI.level, function(x) factor(x, levels = c("상", "중상", "중하", "하"), ordered = TRUE)))
 dimnames(BFI.level.kr) <- list(ID = BFI$ID, BFI.type.kr)
-pander(BFI.level.kr)
+kable(BFI.level.kr)
 ```
 
 위 과정은 다음과 같이 사용자 함수와 `mapply()`를 이용하여 다소 줄일 수도 있다.
@@ -86,14 +86,14 @@ BFI.level.kr.2 <- data.frame(lapply(BFI.level.2, function(x) factor(x, levels = 
 dimnames(BFI.level.kr.2) <- list(ID = BFI$ID, BFI.type.kr)
 (BFI.na.id <- which(apply(BFI.level.kr.2, 1, function(x) all(is.na(x)))))
 (BFI.ok.id <- setdiff(1:nrow(BFI), BFI.na.id))
-pander(BFI.level.kr.2)
+kable(BFI.level.kr.2)
 ```
 
 각 성질의 분포를 `table`로 요약
 
 ```{r, table}
 BFI.level.table <- sapply(BFI.level.kr, table)
-pander(BFI.level.table)
+# pander(BFI.level.table)
 kable(BFI.level.table)
 ```
 
@@ -103,14 +103,14 @@ kable(BFI.level.table)
 
 ```{r, row.names}
 BFI.level.kr.2 <- data.frame(ID = BFI$ID, BFI.level.kr, row.names = 1:nrow(BFI.level.kr))
-pander(BFI.level.kr.2)
+kable(BFI.level.kr.2)
 ```
 
 전체 출석부로 통합하고, 실험에 참여하지 않은 사람들은 `<NA>`로 표시.
 
 ```{r, merge with class roll}
 BFI.full.kr <- join(class.roll, BFI.level.kr.2, by = "ID")
-pander(BFI.full.kr[, -2])
+kable(BFI.full.kr[, -2])
 ```
 
 잊지 말고 `detach()`
@@ -134,7 +134,7 @@ for(j in 1:8) {
 MI.score.kr <- A
 MI.names.kr <- c("음악", "신체운동", "논리수학", "공간", "언어", "인간친화", "자기성찰", "자연친화")
 dimnames(MI.score.kr) <- list(MI$ID, MI.names.kr)
-pander(MI.score.kr)
+kable(MI.score.kr)
 ```
 
 각 지능을 점수 순으로 배열, NA는 나중에 처리.
@@ -144,9 +144,9 @@ pander(MI.score.kr)
 (MI.ok.id <- setdiff(1:nrow(class.roll), MI.na.id))
 MI.score.kr.ok <- MI.score.kr[MI.ok.id, ]
 MI.order.kr <- apply(MI.score.kr.ok, 1, order, decreasing = TRUE)
-pander(t(MI.order.kr))
+t(MI.order.kr)
 MI.sort.kr <- matrix(MI.names.kr[MI.order.kr], ncol = 8, byrow = TRUE, dimnames = list(MI$ID[MI.ok.id], paste("제", 1:8, "순위", sep = "")))
-pander(MI.sort.kr)
+kable(MI.sort.kr)
 ```
 
 #### 출석부에 합치기
@@ -155,14 +155,14 @@ pander(MI.sort.kr)
 
 ```{r, sort}
 MI.sort.kr.2 <- data.frame(ID = MI$ID[MI.ok.id], MI.sort.kr, row.names = 1:nrow(MI.sort.kr))
-pander(MI.sort.kr.2)
+kable(MI.sort.kr.2)
 ```
 
 출석부에 통합
 
 ```{r, merge with class_roll}
 MI.sort.full.kr <- join(class.roll, MI.sort.kr.2, by = "ID")
-pander(MI.sort.full.kr[, -2])
+kable(MI.sort.full.kr[, -2])
 ```
 
 ### 두 data frame을 하나로
@@ -178,7 +178,7 @@ BFI.MI.full <- data.frame(BFI.full.kr, MI.sort.full.kr[, 3:5])
 
 ```{r, ids only}
 BFI.MI.full.ID <- BFI.MI.full[, -2]
-pander(BFI.MI.full.ID)
+kable(BFI.MI.full.ID)
 ```
 
 #### 결석생 확인
