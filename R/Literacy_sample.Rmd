@@ -7,7 +7,7 @@ output: html_document
 
 #### Data 
 
-<!--#### Excel 자료 읽어들이기 
+<!--#### Excel 자료 읽어들이기
 
 * excel 파일을 잘 읽어들이는 `xlsx` 패키지를 올려놓고, 자료구조에 맞춰 argument 설정.
     * Sheet 번호, startRow, colIndex, header 의 용도 파악. 
@@ -29,8 +29,8 @@ options(width=180)
 권현종 학생의 위치가 100번쨰에 놓여 있어서 결석생들의 위치만 가지고 group을 나눠줄 수 없었음. 그들의 id를 다시 찾아서  id와 일치하는 group을 부여하게 됨.
 -->
 
-```{r, read data, echo = FALSE, results = 'hide'}
-literacy.roll <- read.xlsx("../data/literacy_1701.xlsx", 1, startRow = 3, endRow  = 163, colIndex = c(3:7, 9:35), colClasses = c(rep("character", 32)), header = FALSE, stringsAsFactors = FALSE)
+```{r, read data, echo = TRUE, results = 'markup'}
+literacy.roll <- read.xlsx("../data/literacy_1701.xlsx", 1, startRow = 3, endRow  = 163, colIndex = c(3:7, 9:35), colClasses = c(rep("character", 32)), encoding = "UTF-8", header = FALSE, stringsAsFactors = FALSE)
 names(literacy.roll) <- c("dept", "id", "name", "year", "e.mail", "cell.no", paste("Q", 1:25, sep = ""), "group")
 literacy.roll$group <- factor(literacy.roll$group, levels = c("Red", "Black"), labels = c("Red", "Black"))
 head(literacy.roll)
@@ -38,8 +38,10 @@ str(literacy.roll)
 literacy <- literacy.roll[, c(7:32)]
 kable(literacy)
 ```
+
+
 <!--
-```{r, pander literacy, echo = FALSE}
+```{r, pander literacy, echo = TRUE}
 pander(literacy)
 ```
 
@@ -49,7 +51,7 @@ pander(literacy)
     * 정답 읽어들이기. `what=""`로 설정하여 `char`취급. 
 -->
 
-```{r, read ans, echo = FALSE, results = 'hide'}
+```{r, read ans, echo = TRUE, results = 'markup'}
 (ans <- scan("../data/literacy_ans.txt", what = ""))
 ```
 
@@ -59,7 +61,7 @@ pander(literacy)
 -->
     
     
-```{r, ans list and unlist, echo = FALSE, results = 'hide'}
+```{r, ans list and unlist, echo = TRUE, results = 'markup'}
 (ans.l <- split(ans, f = paste("A", 1:25, sep = "")))
 (ans.l.2 <- ans.l[paste("A", 1:25, sep = "")])
 
@@ -72,7 +74,7 @@ pander(literacy)
     
 <!--* 채점표라는 의미의 `literacy.marks` 로 저장, (# 표시한 방식으로는 작동하지 않음)-->
     
-```{r, marks, echo = FALSE}
+```{r, marks, echo = TRUE}
 # 첫 세 학생의 응답을 기초로 확대, mapply()의 활용 방식에 유의
 literacy.marks.rw.q1_3 <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2[1:3], literacy[, 1:3])
 literacy.marks.rw <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2, literacy[, -26])
@@ -88,14 +90,14 @@ pander(literacy.marks.rw)
     + 조사표는 작성해서 제출했지만 빈칸이 있는 경우는 그 문항을 0점 처리, 결석의 경우는 점수가 모두 0으로 나오는 경우를  NA처리 
 -->
 
-```{r, sum of rights answers, echo = FALSE, results = 'hide'}
+```{r, sum of rights answers, echo = TRUE, results = 'markup'}
 literacy.marks <- ifelse(literacy.marks.rw == "R", 1, 0)
 literacy.score <- apply(literacy.marks, 1, sum, na.rm = TRUE) * 4
 literacy.score[literacy.score == 0] <- NA
 which(literacy.score < 60)
 ```
 
-```{r, pander score, echo = FALSE}
+```{r, pander score, echo = TRUE}
 pander(literacy.score)
 ```
 
@@ -103,7 +105,7 @@ pander(literacy.score)
 
 ##### Red and Black 비교
 
-```{r, summary by group, echo = FALSE}
+```{r, summary by group, echo = TRUE}
 pander(tapply(literacy.score, literacy$group, summary))
 # stem(literacy.score, scale = 2)
 stem(literacy.score, scale = 0.5)
@@ -129,13 +131,13 @@ stem(literacy.score[Black], scale = 0.5)
 
 ##### Box Plots
 
-```{r, boxplots, echo = FALSE, fig.width = 6, fig.height = 6}
+```{r, boxplots, echo = TRUE, fig.width = 6, fig.height = 6}
 boxplot(literacy.score ~ literacy$group)
 ```
 
 ##### QQ plot
 
-```{r, qqplots, echo = FALSE, fig.width = 6, fig.height = 6}
+```{r, qqplots, echo = TRUE, fig.width = 6, fig.height = 6}
 qqplot(x = literacy.score[Red], y = literacy.score[Black], xlab = "Red", ylab = "Black", ylim = c(65, 100))
 ```
 
@@ -143,7 +145,7 @@ qqplot(x = literacy.score[Red], y = literacy.score[Black], xlab = "Red", ylab = 
 
 ##### ECDF plot
 
-```{r, ECDF, echo = FALSE, fig.width = 6, fig.height = 6}
+```{r, ECDF, echo = TRUE, fig.width = 6, fig.height = 6}
 literacy.score.red <- literacy.score[literacy$group == "Red" & !is.na(literacy.score)]
 literacy.score.black <- literacy.score[literacy$group == "Black" & !is.na(literacy.score)]
 plot(ecdf(literacy.score.red), xlim = range(c(literacy.score.red, literacy.score.black)), col = "red", main = "ECDF")
@@ -158,7 +160,7 @@ plot(ecdf(literacy.score.black), add = TRUE)
     
 * I수준(24점 이하), II수준(28 ~ 48점), III수준(52 ~ 72점), IV수준(76점 이상) 
     
-```{r, literacy grade, echo = FALSE}
+```{r, literacy grade, echo = TRUE}
 literacy.level <- factor(ifelse(literacy.score <= 24, "I", ifelse(literacy.score <= 48, "II", ifelse(literacy.score <= 72, "III", "IV"))), levels = c("I", "II", "III", "IV"))
 tbl.level <- table("문해력 등급 분포" = literacy.level, exclude = NULL)
 names(tbl.level)[5] <- "결석"
@@ -172,7 +174,7 @@ pander(tbl.level.group[1:2, ], caption = "그룹별 문해력 등급 분포")
 
 #### 문항 유형별 점수 분석
 
-```{r, item by type, echo = FALSE}
+```{r, item by type, echo = TRUE}
 type <- scan(file = "../data/literacy_type.txt", what = "")
 type.kr <- factor(type, levels = c("a", "b", "c"), labels = c("사실적", "추론적", "비판적"))
 ```
@@ -183,7 +185,7 @@ type.kr <- factor(type, levels = c("a", "b", "c"), labels = c("사실적", "추�
     * 일부 문항의 응답이 NA이면 그 문항을 0점 처리, 결석이면 NA 처리. 
 -->
 
-```{r, computing scores by types, echo = FALSE, results = 'hide'}
+```{r, computing scores by types, echo = TRUE, results = 'markup'}
 literacy.type.score <- aggregate(t(literacy.marks), list("유형" = type.kr), sum, na.rm = TRUE)
 literacy.type.score == 0
 literacy.type.score[literacy.type.score == 0] <- NA
@@ -192,7 +194,7 @@ N <- nrow(literacy)
 dimnames(literacy.type.score.by.student) <- list(paste("s", 1:N, sep = ""), paste(levels(type.kr), c("(52점)", "(36점)", "(12점)"), sep=""))
 ```
 
-```{r, scores by types, echo = FALSE, results = 'hide'}
+```{r, scores by types, echo = TRUE, results = 'markup'}
 pander(literacy.type.score.by.student * 4)
 ```
 
@@ -203,7 +205,7 @@ pander(literacy.type.score.by.student * 4)
     + 모든 문항에 NA로 답한 결석한 학생들의 인덱스를 먼저 찾아내고,
 -->
 
-```{r, NA management, echo = FALSE, results = 'hide'}
+```{r, NA management, echo = TRUE, results = 'markup'}
 apply(literacy.marks.rw, 1, function(x) all(is.na(x)))
 na.all <- which(apply(literacy.marks.rw, 1, function(x) all(is.na(x))))
 ```
@@ -213,7 +215,7 @@ na.all <- which(apply(literacy.marks.rw, 1, function(x) all(is.na(x))))
     + TRUE의 갯수를 합하여 평균. 
 -->
 
-```{r, computing correct answer rates, echo = FALSE, results = 'hide'}
+```{r, computing correct answer rates, echo = TRUE, results = 'markup'}
 literacy.marks.2 <- literacy.marks.rw
 literacy.marks.2[is.na(literacy.marks.2)] <- "W"
 literacy.marks.2[na.all, ] <- NA
@@ -226,14 +228,14 @@ dimnames(rate.by.item) <- list("문항" =  paste("문", 1:25, sep = ""), "정답
 ```
 
 <!--
-```{r, correct answer rates, echo = FALSE}
+```{r, correct answer rates, echo = TRUE}
 pander(rate.by.item, digits = 3)
 ```
 -->
 
 ##### 유형별 정답률
 
-```{r, rates by types, echo = FALSE}
+```{r, rates by types, echo = TRUE}
 rate.by.item.type <- data.frame("유형" = type.kr, "정답률" = rate.by.item)
 dimnames(rate.by.item.type) <- list("문항" = paste("문", 1:25, sep = ""), "유형과 정답률" = c("유형", "정답률"))
 pander(format(rate.by.item.type, digits = 3, nsmall = 1), align = c("l", "r"))
@@ -254,25 +256,25 @@ literacy.marks.3
 
 ##### 정답률 80% 이하
 
-```{r, hardest question below 80, echo = FALSE}
+```{r, hardest question below 80, echo = TRUE}
 pander(rate.by.item[which(rate.by.item <= 80), ])
 ```
 
 ##### 정답률 70% 이하
 
-```{r, hardest question below 70, echo = FALSE}
+```{r, hardest question below 70, echo = TRUE}
 pander(rate.by.item[which(rate.by.item <= 70), ])
 ```
 
 ##### 정답률 60% 이하
 
-```{r, hardest question below 60, echo = FALSE}
+```{r, hardest question below 60, echo = TRUE}
 pander(t(rate.by.item[which(rate.by.item <= 60), , drop = FALSE]))
 ```
 
 <!--## Data 정리
 
 ```{r}
-save.image("literacy_201602.rda")
+save.image("literacy_201602.RData")
 ```
 -->
