@@ -7,10 +7,10 @@ output: html_document
 
 #### Data 
 
-<!--#### Excel ìë£Œ ì½ì–´ë“¤ì´ê¸°
+<!--#### Excel ÀÚ·á ÀĞ¾îµéÀÌ±â
 
-* excel íŒŒì¼ì„ ì˜ ì½ì–´ë“¤ì´ëŠ” `xlsx` íŒ¨í‚¤ì§€ë¥¼ ì˜¬ë ¤ë†“ê³ , ìë£Œêµ¬ì¡°ì— ë§ì¶° argument ì„¤ì •.
-    * Sheet ë²ˆí˜¸, startRow, colIndex, header ì˜ ìš©ë„ íŒŒì•…. 
+* excel ÆÄÀÏÀ» Àß ÀĞ¾îµéÀÌ´Â `xlsx` ÆĞÅ°Áö¸¦ ¿Ã·Á³õ°í, ÀÚ·á±¸Á¶¿¡ ¸ÂÃç argument ¼³Á¤.
+    * Sheet ¹øÈ£, startRow, colIndex, header ÀÇ ¿ëµµ ÆÄ¾Ç. 
 -->
 
 ```{r setup, include=FALSE}
@@ -26,7 +26,7 @@ options(width=180)
 ```
 
 <!--
-ê¶Œí˜„ì¢… í•™ìƒì˜ ìœ„ì¹˜ê°€ 100ë²ˆì¨°ì— ë†“ì—¬ ìˆì–´ì„œ ê²°ì„ìƒë“¤ì˜ ìœ„ì¹˜ë§Œ ê°€ì§€ê³  groupì„ ë‚˜ëˆ ì¤„ ìˆ˜ ì—†ì—ˆìŒ. ê·¸ë“¤ì˜ idë¥¼ ë‹¤ì‹œ ì°¾ì•„ì„œ  idì™€ ì¼ì¹˜í•˜ëŠ” groupì„ ë¶€ì—¬í•˜ê²Œ ë¨.
+±ÇÇöÁ¾ ÇĞ»ıÀÇ À§Ä¡°¡ 100¹ø¤Š¿¡ ³õ¿© ÀÖ¾î¼­ °á¼®»ıµéÀÇ À§Ä¡¸¸ °¡Áö°í groupÀ» ³ª´²ÁÙ ¼ö ¾ø¾úÀ½. ±×µéÀÇ id¸¦ ´Ù½Ã Ã£¾Æ¼­  id¿Í ÀÏÄ¡ÇÏ´Â groupÀ» ºÎ¿©ÇÏ°Ô µÊ.
 -->
 
 ```{r, read data, echo = TRUE, results = 'markup'}
@@ -45,19 +45,19 @@ kable(literacy)
 pander(literacy)
 ```
 
-#### ë¬¸í•´ë ¥ ì ìˆ˜ ê³„ì‚°
+#### ¹®ÇØ·Â Á¡¼ö °è»ê
 
-<!--* ì •ë‹µ ë§ì¶°ë³´ê¸°
-    * ì •ë‹µ ì½ì–´ë“¤ì´ê¸°. `what=""`ë¡œ ì„¤ì •í•˜ì—¬ `char`ì·¨ê¸‰. 
+<!--* Á¤´ä ¸ÂÃçº¸±â
+    * Á¤´ä ÀĞ¾îµéÀÌ±â. `what=""`·Î ¼³Á¤ÇÏ¿© `char`Ãë±Ş. 
 -->
 
 ```{r, read ans, echo = TRUE, results = 'markup'}
 (ans <- scan("../data/literacy_ans.txt", what = ""))
 ```
 
-<!--* ê° í•™ìƒë“¤ì˜ ë‹µì•ˆê³¼ ë§ì¶°ë³´ê¸° ìœ„í•˜ì—¬ ì •ë‹µí‘œ ì‘ì„±.
-    * ë¬¸í•­ë³„ë¡œ ì •ë‹µê³¼ ë¹„êµí•˜ê¸° ìœ„í•˜ì—¬ ê° ë¬¸í•­ì„ ë¦¬ìŠ¤íŠ¸ì˜ ì›ì†Œë¡œ ë¶„ë¦¬
-    * `split()` ì˜ ê¸°ëŠ¥ê³¼ í•œê³„ì— ìœ ì˜. `factor` ì„±ê²©ìœ¼ë¡œë¶€í„° `1, 10, 11, ..., 2, 20, ..., 3, 4, 5, ... , 9`ë¡œ ìˆœì„œë¥¼ ì¡ê²Œ ë˜ë¯€ë¡œ ë‹¤ì‹œ í•œë²ˆ ì •ë¦¬í•  í•„ìš”.
+<!--* °¢ ÇĞ»ıµéÀÇ ´ä¾È°ú ¸ÂÃçº¸±â À§ÇÏ¿© Á¤´äÇ¥ ÀÛ¼º.
+    * ¹®Ç×º°·Î Á¤´ä°ú ºñ±³ÇÏ±â À§ÇÏ¿© °¢ ¹®Ç×À» ¸®½ºÆ®ÀÇ ¿ø¼Ò·Î ºĞ¸®
+    * `split()` ÀÇ ±â´É°ú ÇÑ°è¿¡ À¯ÀÇ. `factor` ¼º°İÀ¸·ÎºÎÅÍ `1, 10, 11, ..., 2, 20, ..., 3, 4, 5, ... , 9`·Î ¼ø¼­¸¦ Àâ°Ô µÇ¹Ç·Î ´Ù½Ã ÇÑ¹ø Á¤¸®ÇÒ ÇÊ¿ä.
 -->
     
     
@@ -70,24 +70,24 @@ pander(literacy)
 # literacy.marks <- literacy[, -26] == ans.mat
 ```
 
-##### ì •ë‹µê³¼ ëŒ€ì¡°í•˜ì—¬ R(Right)/W(Wrong) í‘œì‹œ 
+##### Á¤´ä°ú ´ëÁ¶ÇÏ¿© R(Right)/W(Wrong) Ç¥½Ã 
     
-<!--* ì±„ì í‘œë¼ëŠ” ì˜ë¯¸ì˜ `literacy.marks` ë¡œ ì €ì¥, (# í‘œì‹œí•œ ë°©ì‹ìœ¼ë¡œëŠ” ì‘ë™í•˜ì§€ ì•ŠìŒ)-->
+<!--* Ã¤Á¡Ç¥¶ó´Â ÀÇ¹ÌÀÇ `literacy.marks` ·Î ÀúÀå, (# Ç¥½ÃÇÑ ¹æ½ÄÀ¸·Î´Â ÀÛµ¿ÇÏÁö ¾ÊÀ½)-->
     
 ```{r, marks, echo = TRUE}
-# ì²« ì„¸ í•™ìƒì˜ ì‘ë‹µì„ ê¸°ì´ˆë¡œ í™•ëŒ€, mapply()ì˜ í™œìš© ë°©ì‹ì— ìœ ì˜
+# Ã¹ ¼¼ ÇĞ»ıÀÇ ÀÀ´äÀ» ±âÃÊ·Î È®´ë, mapply()ÀÇ È°¿ë ¹æ½Ä¿¡ À¯ÀÇ
 literacy.marks.rw.q1_3 <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2[1:3], literacy[, 1:3])
 literacy.marks.rw <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2, literacy[, -26])
 # literacy.marks.rw <- mapply(function(x, y = ans.l.2) factor(ifelse(x == y, "R", "W")), literacy[, -26])
 # literacy.marks.rw <- sapply(literacy[, -26], function(x, y = ans.l.2) factor(ifelse(x == y, "R", "W")))
-pander(literacy.marks.rw)
+kable(literacy.marks.rw)
 ```
 
-##### í•™ìƒë³„ ì ìˆ˜ ì‚°ì¶œ
+##### ÇĞ»ıº° Á¡¼ö »êÃâ
 
-<!--+ ì •ë‹µì„ ì§‘ê³„í•˜ê¸° ìœ„í•˜ì—¬ "R" ê°¯ìˆ˜ë¥¼ ë‹¤ì‹œ ì‚°ì¶œí•˜ëŠ” `ifelse()` ì ìš©.
-    + 4ì ì”© ê³±í•˜ë©´ 100ì  ë§Œì  ê¸°ì¤€ì˜ ì ìˆ˜ê°€ ë¨. 
-    + ì¡°ì‚¬í‘œëŠ” ì‘ì„±í•´ì„œ ì œì¶œí–ˆì§€ë§Œ ë¹ˆì¹¸ì´ ìˆëŠ” ê²½ìš°ëŠ” ê·¸ ë¬¸í•­ì„ 0ì  ì²˜ë¦¬, ê²°ì„ì˜ ê²½ìš°ëŠ” ì ìˆ˜ê°€ ëª¨ë‘ 0ìœ¼ë¡œ ë‚˜ì˜¤ëŠ” ê²½ìš°ë¥¼  NAì²˜ë¦¬ 
+<!--+ Á¤´äÀ» Áı°èÇÏ±â À§ÇÏ¿© "R" °¹¼ö¸¦ ´Ù½Ã »êÃâÇÏ´Â `ifelse()` Àû¿ë.
+    + 4Á¡¾¿ °öÇÏ¸é 100Á¡ ¸¸Á¡ ±âÁØÀÇ Á¡¼ö°¡ µÊ. 
+    + Á¶»çÇ¥´Â ÀÛ¼ºÇØ¼­ Á¦ÃâÇßÁö¸¸ ºóÄ­ÀÌ ÀÖ´Â °æ¿ì´Â ±× ¹®Ç×À» 0Á¡ Ã³¸®, °á¼®ÀÇ °æ¿ì´Â Á¡¼ö°¡ ¸ğµÎ 0À¸·Î ³ª¿À´Â °æ¿ì¸¦  NAÃ³¸® 
 -->
 
 ```{r, sum of rights answers, echo = TRUE, results = 'markup'}
@@ -98,12 +98,12 @@ which(literacy.score < 60)
 ```
 
 ```{r, pander score, echo = TRUE}
-pander(literacy.score)
+kable(literacy.score)
 ```
 
 <P style = "page-break-before:always">
 
-##### Red and Black ë¹„êµ
+##### Red and Black ºñ±³
 
 ```{r, summary by group, echo = TRUE}
 pander(tapply(literacy.score, literacy$group, summary))
@@ -156,53 +156,53 @@ plot(ecdf(literacy.score.black), add = TRUE)
 <P style = "page-break-before:always">
 -->
 
-##### ë¬¸í•´ë ¥ ë“±ê¸‰ íŒì •
+##### ¹®ÇØ·Â µî±Ş ÆÇÁ¤
     
-* Iìˆ˜ì¤€(24ì  ì´í•˜), IIìˆ˜ì¤€(28 ~ 48ì ), IIIìˆ˜ì¤€(52 ~ 72ì ), IVìˆ˜ì¤€(76ì  ì´ìƒ) 
+* I¼öÁØ(24Á¡ ÀÌÇÏ), II¼öÁØ(28 ~ 48Á¡), III¼öÁØ(52 ~ 72Á¡), IV¼öÁØ(76Á¡ ÀÌ»ó) 
     
 ```{r, literacy grade, echo = TRUE}
 literacy.level <- factor(ifelse(literacy.score <= 24, "I", ifelse(literacy.score <= 48, "II", ifelse(literacy.score <= 72, "III", "IV"))), levels = c("I", "II", "III", "IV"))
-tbl.level <- table("ë¬¸í•´ë ¥ ë“±ê¸‰ ë¶„í¬" = literacy.level, exclude = NULL)
-names(tbl.level)[5] <- "ê²°ì„"
-pander(tbl.level, caption = "ë¬¸í•´ë ¥ ë“±ê¸‰ ë¶„í¬")
-tbl.level.group <- table("Group" = literacy$group, "ë¬¸í•´ë ¥ ë“±ê¸‰ ë¶„í¬" = literacy.level, exclude = NULL)
-colnames(tbl.level.group)[5] <- "ê²°ì„"
-pander(tbl.level.group[1:2, ], caption = "ê·¸ë£¹ë³„ ë¬¸í•´ë ¥ ë“±ê¸‰ ë¶„í¬")
+tbl.level <- table("¹®ÇØ·Â µî±Ş ºĞÆ÷" = literacy.level, exclude = NULL)
+names(tbl.level)[5] <- "°á¼®"
+pander(tbl.level, caption = "¹®ÇØ·Â µî±Ş ºĞÆ÷")
+tbl.level.group <- table("Group" = literacy$group, "¹®ÇØ·Â µî±Ş ºĞÆ÷" = literacy.level, exclude = NULL)
+colnames(tbl.level.group)[5] <- "°á¼®"
+pander(tbl.level.group[1:2, ], caption = "±×·ìº° ¹®ÇØ·Â µî±Ş ºĞÆ÷")
 ```
 
 <P style = "page-break-before:always">
 
-#### ë¬¸í•­ ìœ í˜•ë³„ ì ìˆ˜ ë¶„ì„
+#### ¹®Ç× À¯Çüº° Á¡¼ö ºĞ¼®
 
 ```{r, item by type, echo = TRUE}
 type <- scan(file = "../data/literacy_type.txt", what = "")
-type.kr <- factor(type, levels = c("a", "b", "c"), labels = c("ì‚¬ì‹¤ì ", "ì¶”ë¡ ì ", "ë¹„íŒì "))
+type.kr <- factor(type, levels = c("a", "b", "c"), labels = c("»ç½ÇÀû", "Ãß·ĞÀû", "ºñÆÇÀû"))
 ```
 
-<!--* ìœ í˜•ë³„ ì ìˆ˜ íŒŒì•…
-    * ì™œ `literacy.marks`ì˜ ì „ì¹˜í–‰ë ¬ì„ ì‚¬ìš©í•˜ê³  ìˆëŠ”ì§€ ì´í•´ í•„ìš”.
-    * ë³€ìˆ˜ë“¤ì€ ì‚¬ì‹¤ìƒ ê° í•™ìƒì„ ë‚˜íƒ€ë‚´ë¯€ë¡œ ë³€ìˆ˜ëª…ì„ `s1, s2, ...` ë“±ìœ¼ë¡œ ë°”ê¿ˆ.
-    * ì¼ë¶€ ë¬¸í•­ì˜ ì‘ë‹µì´ NAì´ë©´ ê·¸ ë¬¸í•­ì„ 0ì  ì²˜ë¦¬, ê²°ì„ì´ë©´ NA ì²˜ë¦¬. 
+<!--* À¯Çüº° Á¡¼ö ÆÄ¾Ç
+    * ¿Ö `literacy.marks`ÀÇ ÀüÄ¡Çà·ÄÀ» »ç¿ëÇÏ°í ÀÖ´ÂÁö ÀÌÇØ ÇÊ¿ä.
+    * º¯¼öµéÀº »ç½Ç»ó °¢ ÇĞ»ıÀ» ³ªÅ¸³»¹Ç·Î º¯¼ö¸íÀ» `s1, s2, ...` µîÀ¸·Î ¹Ù²Ş.
+    * ÀÏºÎ ¹®Ç×ÀÇ ÀÀ´äÀÌ NAÀÌ¸é ±× ¹®Ç×À» 0Á¡ Ã³¸®, °á¼®ÀÌ¸é NA Ã³¸®. 
 -->
 
 ```{r, computing scores by types, echo = TRUE, results = 'markup'}
-literacy.type.score <- aggregate(t(literacy.marks), list("ìœ í˜•" = type.kr), sum, na.rm = TRUE)
+literacy.type.score <- aggregate(t(literacy.marks), list("À¯Çü" = type.kr), sum, na.rm = TRUE)
 literacy.type.score == 0
 literacy.type.score[literacy.type.score == 0] <- NA
 literacy.type.score.by.student <- t(literacy.type.score[, -1])
 N <- nrow(literacy)
-dimnames(literacy.type.score.by.student) <- list(paste("s", 1:N, sep = ""), paste(levels(type.kr), c("(52ì )", "(36ì )", "(12ì )"), sep=""))
+dimnames(literacy.type.score.by.student) <- list(paste("s", 1:N, sep = ""), paste(levels(type.kr), c("(52Á¡)", "(36Á¡)", "(12Á¡)"), sep=""))
 ```
 
 ```{r, scores by types, echo = TRUE, results = 'markup'}
-pander(literacy.type.score.by.student * 4)
+kable(literacy.type.score.by.student * 4)
 ```
 
-<!--##### ë¬¸í•­ë³„ ì •ë‹µë¥ -->
+<!--##### ¹®Ç×º° Á¤´ä·ü-->
 
-<!--* ê²°ì„í•œ ê²½ìš°ì™€ ì¼ë¶€ ë¬¸í•­ì— ë‹µì„ ë‚´ì§€ ì•Šì€ ê²½ìš°ë¥¼ êµ¬ë¶„í•˜ëŠ” ê²ƒì´ í•µì‹¬.
-    + `literacy.marks`ë¥¼ ê·¸ëŒ€ë¡œ ì´ìš©í•˜ë©´ ì‰½ê²Œ ê³„ì‚°ë˜ë‚˜, `is.na`í•™ìŠµ ëª©ì ìœ¼ë¡œ `literacy.mark.rw`ì—ì„œ ì¶œë°œ
-    + ëª¨ë“  ë¬¸í•­ì— NAë¡œ ë‹µí•œ ê²°ì„í•œ í•™ìƒë“¤ì˜ ì¸ë±ìŠ¤ë¥¼ ë¨¼ì € ì°¾ì•„ë‚´ê³ ,
+<!--* °á¼®ÇÑ °æ¿ì¿Í ÀÏºÎ ¹®Ç×¿¡ ´äÀ» ³»Áö ¾ÊÀº °æ¿ì¸¦ ±¸ºĞÇÏ´Â °ÍÀÌ ÇÙ½É.
+    + `literacy.marks`¸¦ ±×´ë·Î ÀÌ¿ëÇÏ¸é ½±°Ô °è»êµÇ³ª, `is.na`ÇĞ½À ¸ñÀûÀ¸·Î `literacy.mark.rw`¿¡¼­ Ãâ¹ß
+    + ¸ğµç ¹®Ç×¿¡ NA·Î ´äÇÑ °á¼®ÇÑ ÇĞ»ıµéÀÇ ÀÎµ¦½º¸¦ ¸ÕÀú Ã£¾Æ³»°í,
 -->
 
 ```{r, NA management, echo = TRUE, results = 'markup'}
@@ -210,9 +210,9 @@ apply(literacy.marks.rw, 1, function(x) all(is.na(x)))
 na.all <- which(apply(literacy.marks.rw, 1, function(x) all(is.na(x))))
 ```
 
-<!--* ì •ë‹µë¥  ê³„ì‚°
-    + NAë¥¼ ëª¨ë‘ ì˜¤ë‹µì²˜ë¦¬í•œ í›„, ê²°ì„í•œ í•™ìƒë“¤ë§Œ ë‹¤ì‹œ NAë¡œ ì •ì •.
-    + TRUEì˜ ê°¯ìˆ˜ë¥¼ í•©í•˜ì—¬ í‰ê· . 
+<!--* Á¤´ä·ü °è»ê
+    + NA¸¦ ¸ğµÎ ¿À´äÃ³¸®ÇÑ ÈÄ, °á¼®ÇÑ ÇĞ»ıµé¸¸ ´Ù½Ã NA·Î Á¤Á¤.
+    + TRUEÀÇ °¹¼ö¸¦ ÇÕÇÏ¿© Æò±Õ. 
 -->
 
 ```{r, computing correct answer rates, echo = TRUE, results = 'markup'}
@@ -223,25 +223,25 @@ literacy.marks.2 <- ifelse(literacy.marks.2 == "R", 1, 0)
 rate.by.item <- apply(literacy.marks.2, 2, mean, na.rm = TRUE)*100
 str(rate.by.item)
 rate.by.item <- as.matrix(rate.by.item, 25)
-dimnames(rate.by.item) <- list("ë¬¸í•­" =  paste("ë¬¸", 1:25, sep = ""), "ì •ë‹µë¥ " = "ì •ë‹µë¥ ")
-# colnames(rate.by.item) <- "ì •ë‹µë¥ "
+dimnames(rate.by.item) <- list("¹®Ç×" =  paste("¹®", 1:25, sep = ""), "Á¤´ä·ü" = "Á¤´ä·ü")
+# colnames(rate.by.item) <- "Á¤´ä·ü"
 ```
 
 <!--
 ```{r, correct answer rates, echo = TRUE}
-pander(rate.by.item, digits = 3)
+kable(rate.by.item, digits = 3)
 ```
 -->
 
-##### ìœ í˜•ë³„ ì •ë‹µë¥ 
+##### À¯Çüº° Á¤´ä·ü
 
 ```{r, rates by types, echo = TRUE}
-rate.by.item.type <- data.frame("ìœ í˜•" = type.kr, "ì •ë‹µë¥ " = rate.by.item)
-dimnames(rate.by.item.type) <- list("ë¬¸í•­" = paste("ë¬¸", 1:25, sep = ""), "ìœ í˜•ê³¼ ì •ë‹µë¥ " = c("ìœ í˜•", "ì •ë‹µë¥ "))
-pander(format(rate.by.item.type, digits = 3, nsmall = 1), align = c("l", "r"))
+rate.by.item.type <- data.frame("À¯Çü" = type.kr, "Á¤´ä·ü" = rate.by.item)
+dimnames(rate.by.item.type) <- list("¹®Ç×" = paste("¹®", 1:25, sep = ""), "À¯Çü°ú Á¤´ä·ü" = c("À¯Çü", "Á¤´ä·ü"))
+kable(format(rate.by.item.type, digits = 3, nsmall = 1), align = c("l", "r"))
 ```
 
-<!--* `replace()`ë¥¼ ì´ìš©í•˜ë©´, 
+<!--* `replace()`¸¦ ÀÌ¿ëÇÏ¸é, 
 
 ```{r}
 (literacy.marks.3 <- replace(literacy.marks.rw, is.na(literacy.marks.rw), "W"))
@@ -252,27 +252,28 @@ literacy.marks.3
 
 <!--<P style = "page-break-before:always">-->
 
-#### ì–´ë ¤ìš´ ë¬¸ì œ?
+#### ¾î·Á¿î ¹®Á¦?
 
-##### ì •ë‹µë¥  80% ì´í•˜
+##### Á¤´ä·ü 80% ÀÌÇÏ
 
 ```{r, hardest question below 80, echo = TRUE}
-pander(rate.by.item[which(rate.by.item <= 80), ])
+options(digits = 3)
+kable(t(rate.by.item[which(rate.by.item <= 80), ]))
 ```
 
-##### ì •ë‹µë¥  70% ì´í•˜
+##### Á¤´ä·ü 70% ÀÌÇÏ
 
 ```{r, hardest question below 70, echo = TRUE}
-pander(rate.by.item[which(rate.by.item <= 70), ])
+kable(t(rate.by.item[which(rate.by.item <= 70), ]))
 ```
 
-##### ì •ë‹µë¥  60% ì´í•˜
+##### Á¤´ä·ü 60% ÀÌÇÏ
 
 ```{r, hardest question below 60, echo = TRUE}
-pander(t(rate.by.item[which(rate.by.item <= 60), , drop = FALSE]))
+kable(t(rate.by.item[which(rate.by.item <= 60), , drop = FALSE]))
 ```
 
-<!--## Data ì •ë¦¬
+<!--## Data Á¤¸®
 
 ```{r}
 save.image("literacy_201602.RData")
