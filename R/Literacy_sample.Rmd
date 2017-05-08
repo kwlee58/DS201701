@@ -163,10 +163,10 @@ plot(ecdf(literacy.score.black), add = TRUE)
 ```{r, literacy grade, echo = TRUE}
 literacy.level <- factor(ifelse(literacy.score <= 24, "I", ifelse(literacy.score <= 48, "II", ifelse(literacy.score <= 72, "III", "IV"))), levels = c("I", "II", "III", "IV"))
 tbl.level <- table("문해력 등급 분포" = literacy.level, exclude = NULL)
-names(tbl.level)[5] <- "NA"
+names(tbl.level)[5] <- "결석"
 pander(tbl.level, caption = "문해력 등급 분포")
 tbl.level.group <- table("Group" = literacy$group, "문해력 등급 분포" = literacy.level, exclude = NULL)
-colnames(tbl.level.group)[5] <- "NA"
+colnames(tbl.level.group)[5] <- "결석"
 pander(tbl.level.group[1:2, ], caption = "그룹별 문해력 등급 분포")
 ```
 
@@ -257,13 +257,14 @@ literacy.marks.3
 ##### 정답률 80% 이하
 
 ```{r, hardest question below 80, echo = TRUE}
-kable(rate.by.item[which(rate.by.item <= 80), ])
+options(digits = 3)
+kable(t(rate.by.item[which(rate.by.item <= 80), ]))
 ```
 
 ##### 정답률 70% 이하
 
 ```{r, hardest question below 70, echo = TRUE}
-kable(rate.by.item[which(rate.by.item <= 70), ])
+kable(t(rate.by.item[which(rate.by.item <= 70), ]))
 ```
 
 ##### 정답률 60% 이하
