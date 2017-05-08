@@ -7,10 +7,10 @@ output: html_document
 
 #### Data 
 
-#### Excel ìžë£Œ ì½ì–´ë“¤ì´ê¸° 
+#### Excel ÀÚ·á ÀÐ¾îµéÀÌ±â 
 
-* excel íŒŒì¼ì„ ìž˜ ì½ì–´ë“¤ì´ëŠ” `xlsx` íŒ¨í‚¤ì§€ë¥¼ ì˜¬ë ¤ë†“ê³ , ìžë£Œêµ¬ì¡°ì— ë§žì¶° argument ì„¤ì •.
-    * Sheet ë²ˆí˜¸, startRow, colIndex, header ì˜ ìš©ë„ íŒŒì•…. 
+* excel ÆÄÀÏÀ» Àß ÀÐ¾îµéÀÌ´Â `xlsx` ÆÐÅ°Áö¸¦ ¿Ã·Á³õ°í, ÀÚ·á±¸Á¶¿¡ ¸ÂÃç argument ¼³Á¤.
+    * Sheet ¹øÈ£, startRow, colIndex, header ÀÇ ¿ëµµ ÆÄ¾Ç. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -32,6 +32,7 @@ midterm.roll <- read.xlsx("../data/midterm_01.xlsx",
                           colIndex = c(4, 10:49), 
                           colClasses = rep("character", 41), 
                           header = FALSE, 
+                          encoding = "UTF-8",
                           stringsAsFactors = FALSE)
 names(midterm.roll) <- c("id", paste("Q", 1:40, sep = ""))
 kable(head(midterm.roll[, 2:21]))
@@ -42,30 +43,30 @@ kable(midterm[1:16])
 kable(midterm[17:33])
 ```
 
-### `factor` ë³€í™˜
+### `factor` º¯È¯
 
 ```{r}
 midterm <- lapply(midterm, 
                   factor, 
                   levels = 1:4, 
-                  labels = c("ê°€", "ë‚˜", "ë‹¤", "ë¼"))
+                  labels = c("°¡", "³ª", "´Ù", "¶ó"))
 str(midterm)
 midterm <- data.frame(midterm, 
                       row.names = NULL)
 str(midterm)
 ```
 
-### ë‹µì•ˆ ë¶„í¬
+### ´ä¾È ºÐÆ÷
 
 ```{r, pander midterm, echo = TRUE}
 kable(midterm[1:20])
 kable(midterm[21:40])
-pander(t(sapply(midterm, table)))
+kable(t(sapply(midterm, table)))
 ```
 
 ### barplot
 
-ë§‰ëŒ€ê·¸ëž˜í”„ë¡œ ë‹µì•ˆ ë¶„í¬ë¥¼ ì‹œê°ì ìœ¼ë¡œ ì‚´í•€ë‹¤. ì°¨í›„ ë‚˜ì˜¤ëŠ” ì •ë‹µë¥ ê³¼ í•¨ê»˜ ì–´ëŠ ë¬¸í•­ì—ì„œ ì–´ëŠ ë‹µì•ˆì„ ë§Žì´ ê³ ë¥´ëŠ”ì§€ íŒŒì•…í•˜ëŠ” ë° í™œìš©í•œë‹¤.
+¸·´ë±×·¡ÇÁ·Î ´ä¾È ºÐÆ÷¸¦ ½Ã°¢ÀûÀ¸·Î »ìÇÉ´Ù. Â÷ÈÄ ³ª¿À´Â Á¤´ä·ü°ú ÇÔ²² ¾î´À ¹®Ç×¿¡¼­ ¾î´À ´ä¾ÈÀ» ¸¹ÀÌ °í¸£´ÂÁö ÆÄ¾ÇÇÏ´Â µ¥ È°¿ëÇÑ´Ù.
 
 ```{r, fig.width = 6, fig.height = 12}
 par(family = "HCR Dotum LVT", 
@@ -73,15 +74,15 @@ par(family = "HCR Dotum LVT",
 midterm.tbl <- sapply(midterm, 
                       table, 
                       useNA = "no")
-pander(midterm.tbl[, 1:20])
-pander(midterm.tbl[, 21:40])
+kable(midterm.tbl[, 1:20])
+kable(midterm.tbl[, 21:40])
 str(midterm.tbl)
 midterm.ptbl <- round(apply(midterm.tbl, 
                             2, 
                             prop.table) * 100, 
                       digits = 0)
-pander(midterm.ptbl[, 1:20])
-pander(midterm.ptbl[, 21:40])
+kable(midterm.ptbl[, 1:20])
+kable(midterm.ptbl[, 21:40])
 str(midterm.ptbl)
 label.ptbl <- matrix(paste(format(midterm.ptbl, 
                                   digits = 2, 
@@ -116,18 +117,18 @@ text(x = midterm.tbl[1, ] + midterm.tbl[2, ] + midterm.tbl[3, ] + midterm.tbl[4,
      labels = label.ptbl[4, ])
 ```
 
-#### ì ìˆ˜
+#### Á¡¼ö
 
-* ì •ë‹µ ë§žì¶°ë³´ê¸°
-    * ì •ë‹µ ì½ì–´ë“¤ì´ê¸°. `what = ""`ë¡œ ì„¤ì •í•˜ì—¬ `char`ì·¨ê¸‰. 
+* Á¤´ä ¸ÂÃçº¸±â
+    * Á¤´ä ÀÐ¾îµéÀÌ±â. `what = ""`·Î ¼³Á¤ÇÏ¿© `char`Ãë±Þ. 
 
 ```{r, read ans, echo = TRUE, results = 'markup'}
 (ans <- scan("../data/midterm_ans.txt", what = ""))
 ```
 
-* ê° í•™ìƒë“¤ì˜ ë‹µì•ˆê³¼ ë§žì¶°ë³´ê¸° ìœ„í•˜ì—¬ ì •ë‹µí‘œ ìž‘ì„±.
-    * ë¬¸í•­ë³„ë¡œ ì •ë‹µê³¼ ë¹„êµí•˜ê¸° ìœ„í•˜ì—¬ ê° ë¬¸í•­ì„ ë¦¬ìŠ¤íŠ¸ì˜ ì›ì†Œë¡œ ë¶„ë¦¬
-    * `split()` ì˜ ê¸°ëŠ¥ê³¼ í•œê³„ì— ìœ ì˜. `factor` ì„±ê²©ìœ¼ë¡œë¶€í„° `1, 10, 11, ..., 2, 20, ..., 3, 4, 5, ... , 9`ë¡œ ìˆœì„œë¥¼ ìž¡ê²Œ ë˜ë¯€ë¡œ ë‹¤ì‹œ í•œë²ˆ ì •ë¦¬í•  í•„ìš”.
+* °¢ ÇÐ»ýµéÀÇ ´ä¾È°ú ¸ÂÃçº¸±â À§ÇÏ¿© Á¤´äÇ¥ ÀÛ¼º.
+    * ¹®Ç×º°·Î Á¤´ä°ú ºñ±³ÇÏ±â À§ÇÏ¿© °¢ ¹®Ç×À» ¸®½ºÆ®ÀÇ ¿ø¼Ò·Î ºÐ¸®
+    * `split()` ÀÇ ±â´É°ú ÇÑ°è¿¡ À¯ÀÇ. `factor` ¼º°ÝÀ¸·ÎºÎÅÍ `1, 10, 11, ..., 2, 20, ..., 3, 4, 5, ... , 9`·Î ¼ø¼­¸¦ Àâ°Ô µÇ¹Ç·Î ´Ù½Ã ÇÑ¹ø Á¤¸®ÇÒ ÇÊ¿ä.
     
 ```{r, ans list and unlist, echo = TRUE, results = 'markup'}
 (ans.l <- split(ans, 
@@ -135,62 +136,62 @@ text(x = midterm.tbl[1, ] + midterm.tbl[2, ] + midterm.tbl[3, ] + midterm.tbl[4,
 (ans.l.2 <- ans.l[paste("A", 1:40, sep = "")])
 ```
 
-##### ì •ë‹µê³¼ ëŒ€ì¡°í•˜ì—¬ R(Right)/W(Wrong) í‘œì‹œ 
+##### Á¤´ä°ú ´ëÁ¶ÇÏ¿© R(Right)/W(Wrong) Ç¥½Ã 
     
-* ì±„ì í‘œë¼ëŠ” ì˜ë¯¸ì˜ `midterm.marks` ë¡œ ì €ìž¥, (# í‘œì‹œí•œ ë°©ì‹ìœ¼ë¡œëŠ” ìž‘ë™í•˜ì§€ ì•ŠìŒ)
+* Ã¤Á¡Ç¥¶ó´Â ÀÇ¹ÌÀÇ `midterm.marks` ·Î ÀúÀå, (# Ç¥½ÃÇÑ ¹æ½ÄÀ¸·Î´Â ÀÛµ¿ÇÏÁö ¾ÊÀ½)
     
 ```{r, marks, echo = TRUE}
 midterm.marks.rw.q1_3 <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2[1:3], midterm[, 1:3])
 midterm.marks.rw <- mapply(function(x, y) factor(ifelse(x == y, "R", "W")), y = ans.l.2, midterm)
 # midterm.marks.rw <- mapply(function(x, y = ans.l.2) factor(ifelse(x == y, "R", "W")), midterm[, -26])
 # midterm.marks.rw <- sapply(midterm, function(x, y = ans.l.2) factor(ifelse(x == y, "R", "W")))
-pander(midterm.marks.rw[, 1:20])
-pander(midterm.marks.rw[, 21:40])
+kable(midterm.marks.rw[, 1:20])
+kable(midterm.marks.rw[, 21:40])
 ```
 
 <P style = "page-break-before:always">
 
-##### í•™ìƒë³„ ì ìˆ˜ ì‚°ì¶œ
+##### ÇÐ»ýº° Á¡¼ö »êÃâ
 
-+ ì •ë‹µì„ ì§‘ê³„í•˜ê¸° ìœ„í•˜ì—¬ "R" ê°¯ìˆ˜ë¥¼ ë‹¤ì‹œ ì‚°ì¶œí•˜ëŠ” `ifelse()` ì ìš©.
-    + 4ì ì”© ê³±í•˜ë©´ 100ì  ë§Œì  ê¸°ì¤€ì˜ ì ìˆ˜ê°€ ë¨. 
-    + ë‹µì•ˆì§€ëŠ” ìž‘ì„±í•´ì„œ ì œì¶œí–ˆì§€ë§Œ ë¹ˆì¹¸ì´ ìžˆëŠ” ê²½ìš°ëŠ” ê·¸ ë¬¸í•­ì„ 0ì  ì²˜ë¦¬, ê²°ì„ì˜ ê²½ìš°ëŠ” ì ìˆ˜ê°€ ëª¨ë‘ 0ìœ¼ë¡œ ë‚˜ì˜¤ëŠ” ê²½ìš°ë¥¼  NAì²˜ë¦¬ 
++ Á¤´äÀ» Áý°èÇÏ±â À§ÇÏ¿© "R" °¹¼ö¸¦ ´Ù½Ã »êÃâÇÏ´Â `ifelse()` Àû¿ë.
+    + 4Á¡¾¿ °öÇÏ¸é 100Á¡ ¸¸Á¡ ±âÁØÀÇ Á¡¼ö°¡ µÊ. 
+    + ´ä¾ÈÁö´Â ÀÛ¼ºÇØ¼­ Á¦ÃâÇßÁö¸¸ ºóÄ­ÀÌ ÀÖ´Â °æ¿ì´Â ±× ¹®Ç×À» 0Á¡ Ã³¸®, °á¼®ÀÇ °æ¿ì´Â Á¡¼ö°¡ ¸ðµÎ 0À¸·Î ³ª¿À´Â °æ¿ì¸¦  NAÃ³¸® 
 
 ```{r, sum of rights answers, echo = TRUE, results = 'markup'}
 midterm.marks <- ifelse(midterm.marks.rw == "R", 1, 0)
 kable(midterm.marks[, 1:20])
 kable(midterm.marks[, 21:40])
 midterm.score <- midterm.marks * 2.5
-pander(data.frame("ìˆœë²ˆ" = 1:nrow(midterm), midterm.score)[1:20])
-# pander(data.frame("í•™ë²ˆ" = midterm.roll$id, midterm.score)[1:20])
-pander(data.frame("ìˆœë²ˆ" = 1:nrow(midterm), midterm.score)[21:40])
-# pander(data.frame("í•™ë²ˆ" = midterm.roll$id, midterm.score)[21:40])
+kable(data.frame("¼ø¹ø" = 1:nrow(midterm), midterm.score)[1:20])
+# pander(data.frame("ÇÐ¹ø" = midterm.roll$id, midterm.score)[1:20])
+kable(data.frame("¼ø¹ø" = 1:nrow(midterm), midterm.score)[21:40])
+# pander(data.frame("ÇÐ¹ø" = midterm.roll$id, midterm.score)[21:40])
 midterm.score <- apply(midterm.marks, 1, sum, na.rm = TRUE) * 2.5
 midterm.score[midterm.score == 0] <- NA
 which(midterm.score < 60)
 ```
 
 ```{r, pander score, echo = TRUE}
-pander(data.frame("ìˆœë²ˆ" = 1:nrow(midterm), "ì ìˆ˜" = midterm.score))
+kable(data.frame("¼ø¹ø" = 1:nrow(midterm), "Á¡¼ö" = midterm.score))
 ```
 
 <P style = "page-break-before:always">
 
 
-##### ë¬¸í•­ë³„ ì •ë‹µë¥ 
+##### ¹®Ç×º° Á¤´ä·ü
 
-* ê²°ì„í•œ ê²½ìš°ì™€ ì¼ë¶€ ë¬¸í•­ì— ë‹µì„ ë‚´ì§€ ì•Šì€ ê²½ìš°ë¥¼ êµ¬ë¶„í•˜ëŠ” ê²ƒì´ í•µì‹¬.
-    + `midterm.marks`ë¥¼ ê·¸ëŒ€ë¡œ ì´ìš©í•˜ë©´ ì‰½ê²Œ ê³„ì‚°ë˜ë‚˜, `is.na`í•™ìŠµ ëª©ì ìœ¼ë¡œ `midterm.mark.rw`ì—ì„œ ì¶œë°œ
-    + ëª¨ë“  ë¬¸í•­ì— NAë¡œ ë‹µí•œ ê²°ì„í•œ í•™ìƒë“¤ì˜ ì¸ë±ìŠ¤ë¥¼ ë¨¼ì € ì°¾ì•„ë‚´ê³ ,
+* °á¼®ÇÑ °æ¿ì¿Í ÀÏºÎ ¹®Ç×¿¡ ´äÀ» ³»Áö ¾ÊÀº °æ¿ì¸¦ ±¸ºÐÇÏ´Â °ÍÀÌ ÇÙ½É.
+    + `midterm.marks`¸¦ ±×´ë·Î ÀÌ¿ëÇÏ¸é ½±°Ô °è»êµÇ³ª, `is.na`ÇÐ½À ¸ñÀûÀ¸·Î `midterm.mark.rw`¿¡¼­ Ãâ¹ß
+    + ¸ðµç ¹®Ç×¿¡ NA·Î ´äÇÑ °á¼®ÇÑ ÇÐ»ýµéÀÇ ÀÎµ¦½º¸¦ ¸ÕÀú Ã£¾Æ³»°í,
 
 ```{r, NA management, echo = TRUE, results = 'markup'}
 apply(midterm.marks.rw, 1, function(x) all(is.na(x)))
 na.all <- which(apply(midterm.marks.rw, 1, function(x) all(is.na(x))))
 ```
 
-* ì •ë‹µë¥  ê³„ì‚°
-    + NAë¥¼ ëª¨ë‘ ì˜¤ë‹µì²˜ë¦¬í•œ í›„, ê²°ì„í•œ í•™ìƒë“¤ë§Œ ë‹¤ì‹œ NAë¡œ ì •ì •.
-    + TRUEì˜ ê°¯ìˆ˜ë¥¼ í•©í•˜ì—¬ í‰ê· . 
+* Á¤´ä·ü °è»ê
+    + NA¸¦ ¸ðµÎ ¿À´äÃ³¸®ÇÑ ÈÄ, °á¼®ÇÑ ÇÐ»ýµé¸¸ ´Ù½Ã NA·Î Á¤Á¤.
+    + TRUEÀÇ °¹¼ö¸¦ ÇÕÇÏ¿© Æò±Õ. 
 
 ```{r, computing correct answer rates, echo = TRUE, results = 'markup'}
 midterm.marks.2 <- midterm.marks.rw
@@ -200,15 +201,15 @@ midterm.marks.2 <- ifelse(midterm.marks.2 == "R", 1, 0)
 rate.by.item <- apply(midterm.marks.2, 2, mean, na.rm = TRUE) * 100
 str(rate.by.item)
 rate.by.item <- as.matrix(rate.by.item, 40)
-dimnames(rate.by.item) <- list("ë¬¸í•­" =  paste("ë¬¸", 1:40, sep = ""), "ì •ë‹µë¥ " = "ì •ë‹µë¥ ")
-colnames(rate.by.item) <- "ì •ë‹µë¥ "
+dimnames(rate.by.item) <- list("¹®Ç×" =  paste("¹®", 1:40, sep = ""), "Á¤´ä·ü" = "Á¤´ä·ü")
+colnames(rate.by.item) <- "Á¤´ä·ü"
 ```
 
 ```{r, correct answer rates, echo = TRUE}
-pander(rate.by.item, digits = 3)
+kable(rate.by.item, digits = 3)
 ```
 
-<!--* `replace()`ë¥¼ ì´ìš©í•˜ë©´, 
+<!--* `replace()`¸¦ ÀÌ¿ëÇÏ¸é, 
 
 ```{r}
 (midterm.marks.3 <- replace(midterm.marks.rw, is.na(midterm.marks.rw), "W"))
@@ -219,35 +220,35 @@ midterm.marks.3
 
 <!--<P style = "page-break-before:always">-->
 
-#### ì–´ë ¤ìš´ ë¬¸ì œ?
+#### ¾î·Á¿î ¹®Á¦?
 
 
-##### ì •ë‹µë¥  60% ì´í•˜
+##### Á¤´ä·ü 60% ÀÌÇÏ
 
 ```{r, hardest question below 60, echo = TRUE}
-pander(t(rate.by.item[which(rate.by.item <= 60), , drop = FALSE]))
+kable(t(rate.by.item[which(rate.by.item <= 60), , drop = FALSE]))
 ```
 
-##### ì •ë‹µë¥  50% ì´í•˜
+##### Á¤´ä·ü 50% ÀÌÇÏ
 
 ```{r, hardest question below 50, echo = TRUE}
-pander(t(rate.by.item[which(rate.by.item <= 50), , drop = FALSE]))
+kable(t(rate.by.item[which(rate.by.item <= 50), , drop = FALSE]))
 ```
 
-##### ì •ë‹µë¥  40% ì´í•˜
+##### Á¤´ä·ü 40% ÀÌÇÏ
 
 ```{r, hardest question below 40, echo = TRUE}
-pander(t(rate.by.item[which(rate.by.item <= 40), , drop = FALSE]))
+kable(t(rate.by.item[which(rate.by.item <= 40), , drop = FALSE]))
 ```
 
-##### ì •ë‹µë¥  30% ì´í•˜
+##### Á¤´ä·ü 30% ÀÌÇÏ
 
 ```{r, hardest question below 30, echo = TRUE}
-pander(t(rate.by.item[which(rate.by.item <= 30), , drop = FALSE]))
+kable(t(rate.by.item[which(rate.by.item <= 30), , drop = FALSE]))
 ```
 
 
-<!--## Data ì •ë¦¬
+<!--## Data Á¤¸®
 
 ```{r}
 save.image("midterm.RData")
