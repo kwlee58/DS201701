@@ -39,8 +39,8 @@ kable(head(midterm.roll[, 2:21]))
 kable(head(midterm.roll[, 22:41]))
 str(midterm.roll)
 midterm <- midterm.roll[, -1]
-kable(midterm[1:16])
-kable(midterm[17:33])
+kable(midterm[1:20])
+kable(midterm[21:40])
 ```
 
 ### `factor` 변환
@@ -69,7 +69,7 @@ kable(t(sapply(midterm, table)))
 막대그래프로 답안 분포를 시각적으로 살핀다. 차후 나오는 정답률과 함께 어느 문항에서 어느 답안을 많이 고르는지 파악하는 데 활용한다.
 
 ```{r, fig.width = 6, fig.height = 12}
-par(family = "HCR Dotum LVT", 
+par(family = "", 
     mar = c(5.1, 4.1, 4.1, 8.1))
 midterm.tbl <- sapply(midterm, 
                       table, 
@@ -90,8 +90,8 @@ label.ptbl <- matrix(paste(format(midterm.ptbl,
                            "%", 
                            sep =""), 
                      nrow = 4)
-label.ptbl <- ifelse(label.ptbl == "  0%", "", label.ptbl)
-label.ptbl[, 1:10]
+label.ptbl <- ifelse(label.ptbl == " 0%", "", label.ptbl)
+label.ptbl
 b <- barplot(matrix(midterm.tbl, nrow = 4), 
              horiz = TRUE, 
              axes = FALSE, 
@@ -202,11 +202,11 @@ rate.by.item <- apply(midterm.marks.2, 2, mean, na.rm = TRUE) * 100
 str(rate.by.item)
 rate.by.item <- as.matrix(rate.by.item, 40)
 dimnames(rate.by.item) <- list("문항" =  paste("문", 1:40, sep = ""), "정답률" = "정답률")
-colnames(rate.by.item) <- "정답률"
+colnames(rate.by.item) <- "정답률(%)"
 ```
 
 ```{r, correct answer rates, echo = TRUE}
-kable(rate.by.item, digits = 3)
+kable(rate.by.item, digits = 1)
 ```
 
 <!--* `replace()`를 이용하면, 
