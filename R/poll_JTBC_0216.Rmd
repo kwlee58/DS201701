@@ -1,25 +1,56 @@
-candidates <- c("¹®ÀçÀÎ", "¾ÈÈñÁ¤", "ÀÌÀç¸í", "¾ÈÃ¶¼ö", "È²±³¾È")
+---
+title: "JTBC 170216"
+output: html_document
+---
+
+## Problem
+
+JTBC ì •ì¹˜ë¶€íšŒì˜ì—ì„œëŠ” ë‹¤ìŒê³¼ ê°™ì€ ë„í‘œì˜ ë¯¼ì£¼ë‹¹ ì§€ì§€ì ì¤‘ í›„ë³´ì§€ì§€ë„ ì—¬ë¡ ì¡°ì‚¬ ê²°ê³¼ë¥¼ ë³´ë„. 
+
+![JTBC ì •ì¹˜ë¶€íšŒì˜  2017. 2ì›”](../pics/poll_201702_JTBC.jpg)
+
+ë§‰ëŒ€ì˜ ë†’ì´ì— ì˜êµ¬ì‹¬ì„ í‘œí•œ ì‹œì²­ìë“¤ì˜ í•­ì˜ì— ì§ë©´í•¨. 
+
+ì œëŒ€ë¡œ ëœ ë§‰ëŒ€ê·¸ë˜í”„ë¥¼ ê·¸ë¦¬ë©´ì„œ R Base plotê³¼ ggplotì— ëŒ€í•˜ì—¬ í•™ìŠµ.
+
+
+## Data Setup
+
+```{r, data}
+candidates <- c("ë¬¸ì¬ì¸", "ì•ˆí¬ì •", "ì´ì¬ëª…", "ì•ˆì² ìˆ˜", "í™©êµì•ˆ")
 week2 <- c(57, 20, 11, 2, 1)
 week3 <- c(61, 24, 7, 1, 1)
 rates.df <- data.frame(candidates, week2, week3, stringsAsFactors = FALSE)
 rates.df
+```
+
+## Barplot(R Base)
+
+```{r, fig.width = 8, fig.height = 4}
 par(family = "HCR Dotum LVT")
 b1 <- barplot(t(as.matrix(rates.df[, 2:3])), 
         axes = FALSE, 
         ylim = c(0, 65), 
         beside = TRUE, 
         names.arg = rates.df[, 1], 
-        legend.text = c("2ÁÖÂ÷", "3ÁÖÂ÷"), col = c("darkgrey", "blue"))
+        legend.text = c("2ì£¼ì°¨", "3ì£¼ì°¨"), col = c("darkgrey", "blue"))
 # axis(side = 2, 
 #     at = as.vector(as.matrix(rates.df[, 2:3])), 
 #     labels =  as.vector(as.matrix(rates.df[, 2:3])), las = 1)
 text(x = b1[1, ], y = week2 + 2, labels = week2, col = "darkgrey")
 text(x = b1[2, ], y = week3 + 2, labels = week3, col = "blue")
-main.title <- "´ë¼±ÈÄº¸ ÁöÁöµµ(%)"
-sub.title <- "JTBC Á¤Ä¡ºÎÈ¸ÀÇ, ÇÑ±¹°¶·´ 2017. 2¿ù 7-9ÀÏ, 14-16ÀÏ"
-main.text <- "ÁöÁöÁ¤´ç : ´õºÒ¾î¹ÎÁÖ´ç"
+main.title <- "ëŒ€ì„ í›„ë³´ ì§€ì§€ë„(%)"
+sub.title <- "JTBC ì •ì¹˜ë¶€íšŒì˜, í•œêµ­ê°¤ëŸ½ 2017. 2ì›” 7-9ì¼, 14-16ì¼"
+main.text <- "ì§€ì§€ì •ë‹¹ : ë”ë¶ˆì–´ë¯¼ì£¼ë‹¹"
 title(main = main.title, sub = sub.title, cex.main = 2)
 text(x = 8, y = 60, main.text, cex = 1.2)
+```
+
+## ggplot
+
+### Data for ggplot
+
+```{r, data reshaping}
 library(reshape2)
 rates.df$candidates.f <- factor(candidates, levels = candidates)
 rates.df
@@ -30,7 +61,13 @@ rates.df.melt <- melt(rates.df[, 2:4],
                       variable.name = "week", value.name = "rates")
 rates.df.melt
 str(rates.df.melt)
+```
+
+### Geom_bar
+
+```{r, fig.width = 8, fig.height = 4}
 library(ggplot2)
+source("./theme_kr.R")
 g0 <- ggplot(data = rates.df.melt, 
              mapping = aes(x = candidates.f, y = rates, fill = week)) 
 (g1 <- g0 + 
@@ -45,21 +82,22 @@ g2 <- g1 +
             size = 5)
 g2
 g3 <- g2 +
-  theme_bw(base_family = "")
+  theme_bw() +
+  theme.kr
 g3
 g4 <- g3 + 
     scale_fill_manual(name = "", 
                       values = c("darkgrey", "blue"), 
-                      labels = c("2¿ù 2ÁÖÂ÷", "2¿ù 3ÁÖÂ÷")) +
+                      labels = c("2ì›” 2ì£¼ì°¨", "2ì›” 3ì£¼ì°¨")) +
     scale_colour_manual(name = "",
                         values = c("darkgrey", "blue"), 
-                        labels = c("2¿ù 2ÁÖÂ÷", "2¿ù 3ÁÖÂ÷"))
+                        labels = c("2ì›” 2ì£¼ì°¨", "2ì›” 3ì£¼ì°¨"))
 g4
 g5 <- g4 + 
-    scale_x_discrete(name = "´ë¼±ÈÄº¸")
+    scale_x_discrete(name = "ëŒ€ì„ í›„ë³´")
 g5
 g6 <- g5 +
-    scale_y_continuous(name = "ÁöÁöµµ", 
+    scale_y_continuous(name = "ì§€ì§€ë„", 
                        breaks = as.vector(as.matrix(rates.df[, 2:3])), 
                        labels = as.vector(as.matrix(rates.df[, 2:3])))
 g6
@@ -68,6 +106,7 @@ g7 <- g6 +
 g7
 g8 <- g7 +
   theme(plot.title = element_text(hjust = 0.5), 
+        plot.subtitle = element_text(family = "HCR Dotum LVT"),
         legend.position = c(0.9, 0.7))
 g8
-
+```
