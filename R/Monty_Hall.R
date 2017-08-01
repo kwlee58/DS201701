@@ -9,12 +9,18 @@ monty.hall <- function() {
   c("Key" = key, "Contestant" = contestant, "Monty" = monty, "Switch" = switch, "Result" = result)
 }
 monty.hall()
-N <- 5
+N <- 10000
+monty.result <- replicate(N, monty.hall())
+# monty.result
+sum(monty.result[5, ])/N
+cumsum(monty.result[5, ])
+y <- cumsum(monty.result[5, ])
+y_win <- ifelse(monty.result[5, ] == 1, y, NA)
+y_win
+y_lose <- ifelse(monty.result[5, ] == 1, NA, y)
+y_lose
 monty.plot <- function(N) {
 monty.result <- replicate(N, monty.hall())
-monty.result
-monty.result[5, ]
-cumsum(monty.result[5, ])
 y <- cumsum(monty.result[5, ])
 y_win <- ifelse(monty.result[5, ] == 1, y, NA)
 y_win
@@ -46,9 +52,9 @@ legend("topleft",
        pch = c(24, 25), 
        col = c("blue", "red"), 
        pt.bg = c("blue", "red"))
-table(unlist(monty.result[5, ]))
 sum(monty.result[5, ])/N
 }
 monty.plot(30)
 monty.plot(100)
+table(unlist(monty.result[5, ]))
 
