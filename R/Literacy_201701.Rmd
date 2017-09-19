@@ -226,7 +226,7 @@ dimnames(literacy.type.score.by.student) <- list(paste("s", 1:N, sep = ""), past
 ```
 
 ```{r, scores by types, echo = FALSE, results = 'hide'}
-pander(literacy.type.score.by.student * 4)
+kable(literacy.type.score.by.student * 4)
 ```
 
 <!--##### 문항별 정답률-->
@@ -260,7 +260,7 @@ dimnames(rate.by.item) <- list("문항" =  paste("문", 1:25, sep = ""), "정답
 
 <!--
 ```{r, correct answer rates, echo = FALSE}
-pander(rate.by.item, digits = 3)
+kable(rate.by.item, digits = 3)
 ```
 -->
 
