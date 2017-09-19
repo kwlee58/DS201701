@@ -123,7 +123,7 @@ text(x = midterm.tbl[1, ] + midterm.tbl[2, ] + midterm.tbl[3, ] + midterm.tbl[4,
     * 정답 읽어들이기. `what = ""`로 설정하여 `char`취급. 
 
 ```{r, read ans, echo = TRUE, results = 'markup'}
-(ans <- scan("../data/midterm_ans.txt", what = ""))
+(ans <- scan("../data/midterm_ans_v2.txt", what = ""))
 ```
 
 * 각 학생들의 답안과 맞춰보기 위하여 정답표 작성.
