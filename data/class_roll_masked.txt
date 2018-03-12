@@ -1,4 +1,4 @@
-"dept" "id" "name" "year" "e.mail" "cell.no"
+"dept" "id" "name" "year" "email" "cell_no"
 "1" "중국학과" "20111501" "강ㅇㅇ" "4" "user_name@naver.com" "010-9164-xxxx"
 "2" "전자공학과" "20115201" "강ㅇㅇ" "4" "user_name@hanmail.net" "010-8574-xxxx"
 "3" "컴퓨터공학과" "20175103" "강ㅇㅇ" "1" "user_name@naver.com" "010-6435-xxxx"
